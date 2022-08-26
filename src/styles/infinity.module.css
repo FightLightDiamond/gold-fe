@@ -1,0 +1,134 @@
+.all {
+    margin: 0;
+    padding: 0;
+    /*
+     box-sizing là một thuộc tính sẽ giúp bạn có thể tính toán và làm chủ được kích thước của một phần tử dựa
+     vào thuộc tính width và height đã được thiết lập bên trong
+    - content-box: Giá trị mặc định, nghĩa là giá trị width và height chỉ áp dụng cho khu vực nội dung bên trong,
+     không bao gồm padding, border và margin.
+    - border-box: Khi thiết lập giá trị này, thì width và heigh sẽ bao gồm cho cả phần nội dung,
+     padding và border nhưng không bao gồm margin.
+    - padding-box: Với giá trị này thì width và height chỉ bao gồm cho phần nội dung và padding,
+    không bao gồm border và margin.
+    */
+    box-sizing: border-box;
+}
+
+/**
+Đơn vị tương đối : Là các đơn vị đo lường được sử dụng trong CSS ở mức tương đối,
+nó sẽ được thay đổi bởi các thành phần khác. Các đơn vị tương đối bao gồm:
+- %
+- em: Đối với em, việc quy đổi sang px không dựa vào thuộc tính font-size của phần tử gốc html
+mà sẽ dựa vào font-size của phần tử chính phần tử hiện tại. Chẳng hạn ta có 1 div có class .test-em
+.test-em {
+  font-size: 10px;
+  padding: 10em;
+}
+- rem: Kích thước của các phần tử sử dụng đơn vị rem sẽ được quy đổi sang pixels phụ thuộc
+vào kích thước font chữ của phẩn tử gốc của trang (phần tử html) Ví dụ: html có font-size: 10px;
+vậy thì một phần tử trong đó có width: 10rem; đổi ra sẽ có width: 100px
+ */
+
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #042104;
+    animation: animateColor 8s linear infinite;
+}
+
+@keyframes animateColor {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.section .container {
+    display: flex;
+}
+
+/***
+Các phần tử có thể được đặt vị trí bằng những thuộc tính như top, bottom, left hay right. Tuy nhiên các thuộc tính này sẽ không thể hoạt động nếu không có thuộc tính position trong CSS.
+- Top: Giúp ta căn chỉnh phần tử từ trên xuống dưới nếu giá trị > 0 và ngược lại.
+- Bottom: Ngược lại với thuộc tính top, cho phép căn chỉnh phần tử từ dưới lên trên nếu giá trị, ngược lại sẽ chạy xuống dưới nếu có giá trị < 0.
+- Right: Giúp căn chỉnh phần tử qua phải nếu nhận giá trị > 0 và ngược lại.
+- Left: Cho phép căn chỉnh phần tử qua phải nếu nhận giá trị > 0 và ngược lại.
+Có năm loại position khác nhau trong CSS là:
+- static: Vị trí ở trạng thái mặc định của phần tử (tức là các thuộc tính top, bottom, right, left không có hiệu lực) – div {position:static;}.
+- relative:  nếu muốn canh phần tử con theo phần tử cha. Vị trí tương đối so với vị trí mặc định – div {position:relative; top:10px; left:15px;}.
+- fixed: Định vị theo màn hình và luôn cố định ở một ví trí trên viewport (khu vực hiển thị nội dung trên màn hình) – div{position:fixed; top:10px; left:15px;}.
+- absolute: chúng ta sử dụng các thuộc tính vị trí ở trên để căn chỉnh. Vị trí tuyệt đối cho các thành phần theo thành phần bao ngoài hoặc cửa sổ trình duyệt – div{position:absolute; top:10px; left:15px;}.
+- sticky: Vị trí của phần tử được định vị khi người dùng sử dụng thanh cuộn.
+ */
+.section .container .circle
+{
+    /**
+    Di chuyển so với mặc định
+     */
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 -7.5px;
+}
+
+.section .container .circle span
+{
+    /**
+       Di chuyển theo .circle
+     */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(calc(18deg * var(--i)));
+    /**
+        360/20
+     */
+
+}
+
+.section .container .circle span::before
+{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: calc(50% - 7.5px);
+    width: 15px;
+    height: 15px;
+    background: #00ff0a;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff0a,
+    0 0 20px #00ff0a,
+    0 0 40px #00ff0a,
+    0 0 60px #00ff0a,
+    0 0 80px #00ff0a,
+    0 0 100px #00ff0a;
+    transform: scale(0.1);
+    animation: animate 4s linear infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animate  {
+    0% {
+        transform: scale(1);
+    }
+    50%, 100% {
+        transform: scale(0.1);
+    }
+}
+
+.section .container .circle:nth-child(2)
+{
+    transform: rotate(-180deg);
+}
+
+
+.section .container .circle:nth-child(2) span::before
+{
+    animation-delay: calc(-0.1s * var(--i));
+}

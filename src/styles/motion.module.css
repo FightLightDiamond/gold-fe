@@ -1,0 +1,65 @@
+.all {
+    margin: 0;
+    padding: 0;
+    /*
+     box-sizing là một thuộc tính sẽ giúp bạn có thể tính toán và làm chủ được kích thước của một phần tử dựa
+     vào thuộc tính width và height đã được thiết lập bên trong
+    - content-box: Giá trị mặc định, nghĩa là giá trị width và height chỉ áp dụng cho khu vực nội dung bên trong,
+     không bao gồm padding, border và margin.
+    - border-box: Khi thiết lập giá trị này, thì width và heigh sẽ bao gồm cho cả phần nội dung,
+     padding và border nhưng không bao gồm margin.
+    - padding-box: Với giá trị này thì width và height chỉ bao gồm cho phần nội dung và padding,
+    không bao gồm border và margin.
+    */
+    box-sizing: border-box;
+}
+
+/**
+Đơn vị tương đối : Là các đơn vị đo lường được sử dụng trong CSS ở mức tương đối,
+nó sẽ được thay đổi bởi các thành phần khác. Các đơn vị tương đối bao gồm:
+- %
+- em: Đối với em, việc quy đổi sang px không dựa vào thuộc tính font-size của phần tử gốc html
+mà sẽ dựa vào font-size của phần tử chính phần tử hiện tại. Chẳng hạn ta có 1 div có class .test-em
+.test-em {
+  font-size: 10px;
+  padding: 10em;
+}
+- rem: Kích thước của các phần tử sử dụng đơn vị rem sẽ được quy đổi sang pixels phụ thuộc
+vào kích thước font chữ của phẩn tử gốc của trang (phần tử html) Ví dụ: html có font-size: 10px;
+vậy thì một phần tử trong đó có width: 10rem; đổi ra sẽ có width: 100px
+ */
+.app {
+    padding: 5rem;
+}
+
+.box_container {
+    padding-bottom: 1rem;;
+}
+
+.box {
+    width: 10rem;
+    height: 10rem;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.box2 {
+    width: 100rem;
+    height: 100rem;
+    /*background-color: aquamarine;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.boxItem {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: white;
+    padding: 0.5rem;
+    list-style: none;
+    margin: 0.2rem;
+}

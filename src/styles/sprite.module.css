@@ -1,0 +1,250 @@
+.all {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+
+}
+
+.box {
+    /*position: absolute;*/
+    /*top: 20%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    width: calc(832px/6);
+    height: 139px;
+    background: url("http://localhost:3000/img/spritestrip.png");
+    animation: animate 1s steps(6) infinite;
+}
+
+@keyframes animate {
+    from {
+        background-position: 0;
+    }
+
+    to {
+        background-position: -832px;
+    }
+}
+
+
+.box2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(900px/6);
+    height: 250px;
+    background: url("http://localhost:3000/img/mg.jpg");
+    animation: animate2 0.5s steps(6) infinite;
+}
+
+@keyframes animate2 {
+    from {
+        background-position: top 0 left 0;
+    }
+
+    to {
+        background-position: top 0 left 900px;
+    }
+}
+
+.box3 {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    /*transform: translate(-50%, -50%);*/
+    /*width: calc(900px/6);*/
+    height: 604px;
+    width: 605px;
+    background: url("http://localhost:3000/img/png/Dead (1).png");
+    animation: animate3 1.6s steps(10);
+}
+
+@keyframes animate3 {
+   0% {
+       background: url("http://localhost:3000/img/png/Dead (1).png");
+   }
+   10% {
+       background: url("http://localhost:3000/img/png/Dead (2).png");
+   }
+   20% {
+       background: url("http://localhost:3000/img/png/Dead (3).png");
+   }
+   30% {
+       background: url("http://localhost:3000/img/png/Dead (4).png");
+   }
+   40% {
+       background: url("http://localhost:3000/img/png/Dead (5).png");
+   }
+   50% {
+       background: url("http://localhost:3000/img/png/Dead (6).png");
+   }
+   60% {
+       background: url("http://localhost:3000/img/png/Dead (7).png");
+   }
+   70% {
+       background: url("http://localhost:3000/img/png/Dead (8).png");
+   }
+   80% {
+       background: url("http://localhost:3000/img/png/Dead (9).png");
+   }
+   90% {
+       background: url("http://localhost:3000/img/png/Dead (10).png");
+   }
+   100% {
+       background: url("http://localhost:3000/img/png/Dead (1).png");
+   }
+}
+
+
+.box4 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    /*transform: translate(-50%, -50%);*/
+    /*width: calc(900px/6);*/
+    width: 641px;
+    height: 542px;
+    background: url("http://localhost:3000/img/png/Melee (1).png");
+    animation: animate4 0.5s steps(8) infinite;
+}
+
+
+@keyframes animate4 {
+   0%, 100% {
+       background: url("http://localhost:3000/img/png/Run (1).png");
+   }
+   12.5% {
+       background: url("http://localhost:3000/img/png/Run (2).png");
+   }
+   25% {
+       background: url("http://localhost:3000/img/png/Run (3).png");
+   }
+   37.5% {
+       background: url("http://localhost:3000/img/png/Run (4).png");
+   }
+   50% {
+       background: url("http://localhost:3000/img/png/Run (5).png");
+   }
+   62.5% {
+       background: url("http://localhost:3000/img/png/Run (6).png");
+   }
+   75% {
+       background: url("http://localhost:3000/img/png/Run (7).png");
+   }
+   85.5% {
+       background: url("http://localhost:3000/img/png/Run (8).png");
+   }
+}
+
+.box5 {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    /*transform: translate(-50%, -50%);*/
+    /*width: calc(900px/6);*/
+    width: 641px;
+    height: 542px;
+    background: url("http://localhost:3000/img/png/Melee (1).png");
+    animation: animate5 1s steps(7) infinite;
+}
+
+
+@keyframes animate5 {
+   0%, 100% {
+       background: url("http://localhost:3000/img/png/Melee (1).png");
+   }
+   7%, 93% {
+       background: url("http://localhost:3000/img/png/Melee (2).png");
+   }
+   14%, 86% {
+       background: url("http://localhost:3000/img/png/Melee (3).png");
+   }
+   21%, 79% {
+       background: url("http://localhost:3000/img/png/Melee (4).png");
+   }
+   28%, 72% {
+       background: url("http://localhost:3000/img/png/Melee (5).png");
+   }
+   35%, 65% {
+       background: url("http://localhost:3000/img/png/Melee (6).png");
+   }
+   49%, 51% {
+       background: url("http://localhost:3000/img/png/Melee (7).png");
+   }
+}
+
+.box6 {
+    position: absolute;
+    top: 80%;
+    right: 0;
+    /*transform: translate(-50%, -50%);*/
+    /*width: calc(900px/6);*/
+    width: 641px;
+    height: 542px;
+    background: url("http://localhost:3000/img/png/Shoot (1).png");
+    animation: animate6 0.5s steps(3) infinite;
+}
+
+
+@keyframes animate6 {
+   0%, 100% {
+       background: url("http://localhost:3000/img/png/Shoot (1).png");
+   }
+   30% {
+       background: url("http://localhost:3000/img/png/Shoot (2).png");
+   }
+   60% {
+       background: url("http://localhost:3000/img/png/Shoot (3).png");
+   }
+}
+
+
+/*.box7 {*/
+/*    position: absolute;*/
+/*    top: 180%;*/
+/*    right: 0;*/
+/*    !*transform: translate(-50%, -50%);*!*/
+/*    !*width: calc(900px/6);*!*/
+/*    width: 5250px;*/
+/*    height: 1750px;*/
+/*    background: url("http://localhost:3000/img/thunder/4461.jpg");*/
+/*    animation: animate7 0.5s steps(5) infinite;*/
+/*}*/
+
+
+/*@keyframes animate7 {*/
+/*    from {*/
+/*        background-position: top 0 left 0;*/
+/*    }*/
+
+/*    to {*/
+/*        background-position: top 0 left 5250px;*/
+/*    }*/
+/*}*/
+
+/*.box7 {*/
+/*    position: absolute;*/
+/*    top: 180%;*/
+/*    right: 0;*/
+/*    !*transform: translate(-50%, -50%);*!*/
+/*    !*width: calc(900px/6);*!*/
+/*    width: 7000px;*/
+/*    height: 1014px;*/
+/*    background: url("http://localhost:3000/img/water/1.jpg");*/
+/*    animation: animate7 1s steps(9) infinite;*/
+/*}*/
+
+
+/*@keyframes animate7 {*/
+/*    from {*/
+/*        background-position: top 0 left 0;*/
+/*    }*/
+
+/*    to {*/
+/*        background-position: top 0 left 7000px;*/
+/*    }*/
+/*}*/
