@@ -1,4 +1,3 @@
-
 import styles from "../styles/border.module.css";
 
 const Border = () => {

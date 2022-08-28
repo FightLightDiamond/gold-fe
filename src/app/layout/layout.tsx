@@ -12,7 +12,7 @@ function Layout({ children }: any) {
         // Need update rule when browser refresh
         const permissions = abilityRoles(role, 1);
         ability.update([...permissions.rules, ...ability.rules]);
-    }, []);
+    }, [ability]);
 
     return (
         <>

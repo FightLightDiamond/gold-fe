@@ -1,41 +1,23 @@
-import {useDispatch, useSelector} from "react-redux";
 import {memo, useEffect, useState} from "react";
-import styles from "../styles/Home.module.css";
-import {IMatchState, index} from "../app/http/store/reducers/match.slice";
-import {useEffectOnce} from "../app/hooks/useEffectOnce";
+import styles from "../../../styles/fighting-match.module.css";
 import {Col, Row} from "react-bootstrap";
-import HeroTurn from "../app/components/hero/hero-select";
-import {IMatchLog} from "../app/interfaces/match-log.interface";
-import {RootState} from "../app/http/store";
 import Spinner from 'react-bootstrap/Spinner';
+import {IMatchLog} from "../../interfaces/match-log.interface";
+import HeroTurn from "../hero/hero-select";
+import Countdown from "react-countdown";
 
-const Home = () => {
-  /**
-   * Selector
-   */
-  const dispatch = useDispatch();
-  const match: IMatchState = useSelector((state: RootState) => state.match);
-  const items: IMatchLog[] = match.items;
-
+const FightingMatch = ({items, start_time}: { items: any, start_time: number }) => {
   /**
    * State
    */
   const [home, setHome] = useState<IMatchLog>();
   const [away, setAway] = useState<IMatchLog>();
 
-  /**
-   * useEffect
-   */
-  useEffectOnce(() => {
-    dispatch({
-      type: index.type
-    });
-  });
-
   useEffect(() => {
     if (items.length > 0) {
       setMatch();
     }
+
   }, [items]);
 
   const setMatch = () => {
@@ -64,10 +46,20 @@ const Home = () => {
     }, 5000);
   };
 
+  const renderer = ({ minutes, seconds }: {minutes: number, seconds: number }) => {
+      return <span>{minutes}:{seconds}</span>;
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.body}>
         <div className={styles.container}>
+          <div>
+            {start_time}: <Countdown date={start_time} />
+          </div>
+          <div>
+            ROUND: {home?.round}
+          </div>
           <Row className={styles.card + " justify-content-md-center"}>
             <Col md="6">
               {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
@@ -82,4 +74,4 @@ const Home = () => {
   );
 };
 
-export default memo(Home);
+export default memo(FightingMatch);

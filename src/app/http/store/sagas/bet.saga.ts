@@ -1,8 +1,8 @@
 import {put, takeLeading} from 'redux-saga/effects'
 import {
-  bet,
-  betSuccess,
-  betError,
+  placeBet,
+  placeBetSuccess,
+  placeBetError,
 } from '../reducers/bet.slice'
 
 import betService from "../../services/bet.service";
@@ -12,16 +12,16 @@ function* betWorker(action: IAction<any>): any {
   const [response, error] = yield betService.store(action.payload)
 
   if (error) {
-    yield put({type: betError.type})
+    yield put({type: placeBetError.type})
   } else {
     const {data} = response
     const payload = data ?? response
-    yield put({type: betSuccess.type, payload})
+    yield put({type: placeBetSuccess.type, payload})
   }
 }
 
 function* betWatcher() {
-  yield takeLeading(bet.type, betWorker)
+  yield takeLeading(placeBet.type, betWorker)
 }
 
 export default betWatcher

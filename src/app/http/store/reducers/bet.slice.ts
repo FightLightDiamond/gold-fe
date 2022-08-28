@@ -20,15 +20,15 @@ export const betSlice = createSlice({
 	name: 'bet',
 	initialState,
 	reducers: {
-		bet: (state, action?: PayloadAction<string>) => {
+		placeBet: (state, action?: PayloadAction<string>) => {
 			state.bet.loading = true
 			state.bet.error = null
 		},
-		betError: (state: IState, action: PayloadAction<string>) => {
+		placeBetError: (state: IState, action: PayloadAction<string>) => {
 			state.bet.loading = false
 			state.bet.error = action.payload
 		},
-		betSuccess: (state: IState, action: PayloadAction<any[]>) => {
+		placeBetSuccess: (state: IState, action: PayloadAction<any[]>) => {
 			state.bet.loading = false
 			state.bet.item = action.payload
 		},
@@ -36,9 +36,9 @@ export const betSlice = createSlice({
 })
 
 export const {
-	bet,
-	betError,
-	betSuccess
+	placeBet,
+	placeBetError,
+	placeBetSuccess
 } = betSlice.actions
 
 export default betSlice.reducer

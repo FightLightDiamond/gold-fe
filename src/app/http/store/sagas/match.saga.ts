@@ -3,9 +3,9 @@ import {
 	index,
 	indexError,
 	indexSuccess,
-	betting,
-	bettingError,
-	bettingSuccess
+	getCurrentMatch,
+	getCurrentMatchError,
+	getCurrentMatchSuccess
 } from '../reducers/match.slice'
 import Service from "../../services/match.service";
 import {IAction} from "../IAction";
@@ -14,7 +14,7 @@ function* indexWorker(action: IAction<any>): any {
 	const [response, error] = yield Service.index(action.payload)
 	console.log(response, error)
 	if (error) {
-		yield put({type: indexError.toString()})
+		yield put({type: indexError.type})
 	} else {
 			// const {data} = response
 			const payload = response
@@ -22,22 +22,22 @@ function* indexWorker(action: IAction<any>): any {
 	}
 }
 
-function* bettingWorker(action: IAction<any>): any {
-	const [response, error] = yield Service.index(action.payload)
+function* getCurrentMatchWorker(action: IAction<any>): any {
+	const [response, error] = yield Service.getCurrentMatch()
 	console.log(response, error)
 	if (error) {
-		yield put({type: bettingError.toString()})
+		yield put({type: getCurrentMatchError.type})
 	} else {
 			const {data} = response
 			const payload = data ?? response
-			yield put({type: bettingSuccess.type, payload})
+			console.log('getCurrentMatchWorker', payload)
+			yield put({type: getCurrentMatchSuccess.type, payload})
 	}
 }
 
-
 function* Watcher() {
 	yield takeLatest(index.type, indexWorker)
-	yield takeLatest(betting.type, bettingWorker)
+	yield takeLatest(getCurrentMatch.type, getCurrentMatchWorker)
 }
 
 export default Watcher

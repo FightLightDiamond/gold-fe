@@ -7,7 +7,7 @@ export interface MatchInterface {
   turns: string;
   turn_number: number;
   /**
-   * PENDING | PROCESSING | DONE
+   * PEND_STATUSING | PROCESSING | DONE
    */
   status: number;
   winner: number;

@@ -6,7 +6,7 @@ export interface IMatchState {
 	item: any,
 	loading: boolean
 	error: string | null
-	betting: {
+	currentMatch: {
 		item: any,
 		loading: boolean
 		error: string | null
@@ -18,7 +18,7 @@ const initialState: IMatchState = {
 	item: null,
 	loading: false,
 	error: null,
-	betting: {
+	currentMatch: {
 		item: {},
 		loading: false,
 		error: null
@@ -41,17 +41,18 @@ export const matchSlice = createSlice({
 			state.loading = false
 			state.items = action.payload
 		},
-		betting: (state: IMatchState, action?: PayloadAction<string>) => {
-			state.betting.loading = true
-			state.betting.error = null
+		getCurrentMatch: (state: IMatchState, action?: PayloadAction<string>) => {
+			state.currentMatch.loading = true
+			state.currentMatch.error = null
 		},
-		bettingError: (state: IMatchState, action: PayloadAction<string>) => {
-			state.betting.loading = false
-			state.betting.error = action.payload
+		getCurrentMatchError: (state: IMatchState, action: PayloadAction<string>) => {
+			state.currentMatch.loading = false
+			state.currentMatch.error = action.payload
 		},
-		bettingSuccess: (state: IMatchState, action: PayloadAction<any[]>) => {
-			state.betting.loading = false
-			state.betting.item = action.payload
+		getCurrentMatchSuccess: (state: IMatchState, action: PayloadAction<any[]>) => {
+			state.currentMatch.loading = false
+			console.log('getCurrentMatchSuccess', action.payload)
+			state.currentMatch.item = action.payload
 		},
 	},
 })
@@ -60,9 +61,9 @@ export const {
 	index,
 	indexError,
 	indexSuccess,
-	betting,
-	bettingError,
-	bettingSuccess
+	getCurrentMatch,
+	getCurrentMatchError,
+	getCurrentMatchSuccess
 } = matchSlice.actions
 
 export default matchSlice.reducer

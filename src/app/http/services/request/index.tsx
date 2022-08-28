@@ -21,9 +21,9 @@ class Request {
 
 		instance.interceptors.request.use(
 			async (config: any) => {
-				const accessToken = Cookies.get("accessToken");
-				if (accessToken) {
-					config.headers["Authorization"] = `Bearer ${accessToken}`;
+				const accessuser = Cookies.get("accessuser");
+				if (accessuser) {
+					config.headers["Authorization"] = `Bearer ${accessuser}`;
 				}
 
 				return config;

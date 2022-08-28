@@ -16,7 +16,7 @@
     width: calc(832px/6);
     height: 139px;
     background: url("http://localhost:3000/img/spritestrip.png");
-    animation: animate 1s steps(6) infinite;
+    animation: animate 0.5s steps(6) infinite;
 }
 
 @keyframes animate {

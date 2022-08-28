@@ -31,14 +31,14 @@ const socket = io("http://localhost:3333", {
 //
 // retryConnectOnFailure(RETRY_INTERVAL);
 
-// const token = ""
+// const user = ""
 
 // const socket = io("http://localhost:3000", {
-//   query: { token },
+//   query: { user },
 //   transportOptions: {
 //     polling: {
 //       extraHeaders: {
-//         Authorization: `${token}`
+//         Authorization: `${user}`
 //       }
 //     }
 //   }
@@ -46,14 +46,14 @@ const socket = io("http://localhost:3333", {
 
 // const chatSocket = io("http://localhost:3001/chat", {
 //   path: '/websockets',
-//   query: { token },
+//   query: { user },
 //   // extraHeaders: {
-//   //   Authorization: `${token}`
+//   //   Authorization: `${user}`
 //   // },
 //   transportOptions: {
 //     polling: {
 //       extraHeaders: {
-//         Authorization: `${token}`
+//         Authorization: `${user}`
 //       }
 //     }
 //   }
