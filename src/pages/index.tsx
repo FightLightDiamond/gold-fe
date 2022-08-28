@@ -85,11 +85,8 @@ const Home = () => {
     <div className={styles.root}>
       <div className={styles.body}>
         <Row  className="justify-content-md-center" >
-          <Col md="4" xs={12} className={styles.container} >
-            {home ? <HeroSelect hero={home}/> : <Spinner variant="light" animation="border" />}
-          </Col>
-          <Col md="4" xs={12} className={styles.container} >
-            {away ? <HeroSelect hero={away}/>: <Spinner variant="light" animation="border" />}
+          <Col md="4" xs={24} className={styles.container} >
+            {home && away ? <HeroSelect hero={home} away={away}/> : <Spinner variant="light" animation="border" />}
           </Col>
         </Row>
       </div>
