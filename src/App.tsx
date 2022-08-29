@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/room" element={<Room/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
+          <Route path="/borer" element={<Border/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>

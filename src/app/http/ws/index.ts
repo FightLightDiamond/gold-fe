@@ -1,5 +1,8 @@
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3333", {
+
+const wsEndpoint = process.env.REACT_APP_WS_URL ?? "";
+
+const socket = io(wsEndpoint, {
   reconnection: true,
   reconnectionDelay: 500,
 });
