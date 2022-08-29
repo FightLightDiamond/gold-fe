@@ -69,10 +69,10 @@ const Home = () => {
       <div className={styles.body}>
         <div className={styles.container}>
           <Row className={styles.card + " justify-content-md-center"}>
-            <Col md="6">
+            <Col xs="6">
               {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
             </Col>
-            <Col md="6">
+            <Col xs="6">
               {away ? <HeroTurn hero={away}/> : <Spinner variant="light" animation="border"/>}
             </Col>
           </Row>

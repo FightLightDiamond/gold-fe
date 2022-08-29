@@ -1,0 +1,115 @@
+/**
+ * https://sass-lang.com/documentation/
+ */
+@use 'styles/_colors.scss'; // assuming a styles directory under src/
+//@use '~nprogress/nprogress'; // loading a css file from the nprogress node module
+
+/**
+Using the variables in SCSS
+ */
+.circle {
+  $size: 100px;
+  width: $size;
+  height: $size;
+  border-radius: $size * 0.5;
+}
+
+/**
+ * Applying Conditions in SCSS
+ */
+$width:auto;
+p{
+  @mixin clearfix($width) {
+
+    @if $width == 'auto' {
+
+      // if width is not passed, or empty do this
+
+    } @else {
+      display: inline-block;
+      width: $width;
+    }
+  }
+}
+
+/**
+ * Dynamic Class in SCSS
+ */
+$columns: 5;
+
+@for $i from 1 through $columns {
+  .columns-#{$i} {
+    width: (100% / $i);
+  }
+}
+
+/**
+ * Each loop in SCSS
+ */
+$icons: ("eye": "\f112", "start": "\f12e", "stop": "\f12f");
+
+@each $name, $glyph in $icons {
+  .icon-#{$name}:before {
+    display: inline-block;
+    content: $glyph;
+  }
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.box {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.box::before
+{
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background-image: conic-gradient(transparent, transparent, transparent, #d400d4);
+  animation: animate 4s linear infinite;
+  animation-delay: -2s;
+}
+
+.box::after
+{
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background-image: conic-gradient(transparent, transparent, transparent, #00ccff);
+  animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.box .boxContent {
+  position: absolute;
+  inset: 2px;
+  border-radius: 40px;
+  background: #0c1022;
+  z-index: 1;
+}
+
+.progress {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0 !important;
+}
