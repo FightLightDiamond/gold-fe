@@ -39,10 +39,10 @@ const HeroSelect = ({ hero , away }: { hero: IMatchLog, away: IMatchLog }) => {
         className="text-info">{hero.take_dmg ? hero.take_dmg : ''}&nbsp;</motion.h1>
       <motion.div className={styles.img}
                   animate={{
-                    x: !hero.take_dmg ? 300 : 0,
+                    x: !hero.take_dmg ? [100,0] : 0,
                     // backgroundColor: "blue",
-                    scale: !hero.take_dmg ? [0.7, 1] : 1,
-                    opacity: !hero.take_dmg ? [0.5, 1] : 1,
+                    scale: hero.take_dmg ? [0.7, 1] : 1,
+                    opacity: hero.take_dmg ? [0.5, 1] : 1,
                   }}
                   transition={{
                     type: "tween",
@@ -103,11 +103,13 @@ const HeroSelect = ({ hero , away }: { hero: IMatchLog, away: IMatchLog }) => {
         }}
         className="text-info">{away.take_dmg ? away.take_dmg : ''}&nbsp;</motion.h1>
       <motion.div className={styles.img}
+                  initial={{  x: !away.take_dmg ? 0 : 0,    
+                  }}
                   animate={{
-                    x: !away.take_dmg ? -100 : 0,
+                    x: !away.take_dmg ? [-100,0] : 0,
                     // backgroundColor: "blue",
-                    scale: !away.take_dmg ? [0.7, 1] : 1,
-                    opacity: !away.take_dmg ? [0.5, 1] : 1,
+                    scale: away.take_dmg ? [0.7, 1] : 1,
+                    opacity: away.take_dmg ? [0.5, 1] : 1,
                   }}
                   transition={{
                     type: "tween",
