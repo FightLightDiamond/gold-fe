@@ -3,12 +3,8 @@ import {Tilt} from "../Tilt";
 import {motion} from "framer-motion";
 import {IMatchLog} from "../../interfaces/match-log.interface";
 import {ProgressBar} from "react-bootstrap";
-import {placeBet} from '../../http/store/reducers/bet.slice'
-import {useDispatch} from "react-redux";
 
 const HeroTurn = ({hero}: { hero: IMatchLog }) => {
-  const dispatch = useDispatch()
-
   return <Tilt
     options={{
       scale: 1,
@@ -40,7 +36,7 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
             duration: 3,
             delay: 1,
           }}
-          className="text-warning">{hero.take_skill_dmg ? "-" + hero.take_skill_dmg : ''}&nbsp;</motion.h1>
+          className="text-warning text-center">{hero.take_skill_dmg ? "-" + hero.take_skill_dmg : ''}&nbsp;</motion.h1>
         <motion.h1
           initial={{y: 10, height: 20}}
           animate={{
@@ -52,7 +48,7 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
             delay: 1.1,
             duration: 3,
           }}
-          className="text-danger">{hero.take_dmg ? "-" + hero.take_dmg : ''}&nbsp;</motion.h1>
+          className="text-danger text-center">{hero.take_dmg ? "-" + hero.take_dmg : ''}&nbsp;</motion.h1>
       </div>
       <motion.div className={styles.img}
                   key={hero.name}
@@ -76,20 +72,6 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
           className="img-thumbnail"
         />
       </motion.div>
-      <a onClick={() =>
-        dispatch({
-            type: placeBet.type,
-            payload: {
-              match_id: 1,
-              hero_id: 1,
-              balance: 999,
-            }
-          }
-        )
-      }
-      >
-        BET
-      </a>
     </motion.div>
   </Tilt>
 }

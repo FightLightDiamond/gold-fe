@@ -1,79 +1,54 @@
-import {useDispatch, useSelector} from "react-redux";
 import {memo, useEffect, useState} from "react";
-import styles from "../styles/Home.module.css";
-import {IMatchState, index} from "../app/http/store/reducers/match.slice";
-import {useEffectOnce} from "../app/hooks/useEffectOnce";
+import styles from "../../../styles/fighting-match.module.css";
 import {Col, Row} from "react-bootstrap";
-import HeroTurn from "../app/components/hero/hero-select";
-import {IMatchLog} from "../app/interfaces/match-log.interface";
-import {RootState} from "../app/http/store";
 import Spinner from 'react-bootstrap/Spinner';
+import {IMatchLog} from "../../interfaces/match-log.interface";
+import HeroTurn from "../hero/hero-select";
+import Countdown from "react-countdown";
 import {
-  MDBBtn,
-  MDBInput,
+  MDBBtn, MDBInput,
   MDBModal,
   MDBModalBody,
   MDBModalContent,
   MDBModalDialog,
   MDBModalHeader,
-  MDBModalTitle,
-} from 'mdb-react-ui-kit';
-import {placeBet} from "../app/http/store/reducers/bet.slice";
+  MDBModalTitle
+} from "mdb-react-ui-kit";
+import {currentBet, IBetState, placeBet} from "../../http/store/reducers/bet.slice";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../http/store";
 
-const Home = () => {
-  /**
-   * Selector
-   */
+const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_time: number }) => {
+  const bet: IBetState = useSelector((state: RootState) => state.bet);
   const dispatch = useDispatch();
-  const match: IMatchState = useSelector((state: RootState) => state.match);
-  const items: IMatchLog[] = match.items;
-
   /**
    * State
    */
   const [home, setHome] = useState<IMatchLog>();
   const [away, setAway] = useState<IMatchLog>();
 
-  /**
-   * useEffect
-   */
-  useEffectOnce(() => {
-    dispatch({
-      type: index.type
-    });
-  });
-
   useEffect(() => {
-    if (items.length > 0) {
-      setMatch();
+    if (items.length > 1) {
+      setHome(items[0])
+      setAway(items[1])
     }
   }, [items]);
 
-  const setMatch = () => {
-    let index = -1;
-    /**
-     * Tạm thời set tổng 1 pha đánh từ A -> B là 1 s
-     */
-    const id = setInterval(() => {
-      //Thể hiện hiệu ứng bên Đánh
-      ++index
-      if (items.length <= index) {
-        clearInterval(id);
-        return;
+  useEffect(() => {
+    //Get bet buy match id
+    dispatch({
+      type: currentBet.type,
+      payload: {
+        match_id: id
       }
-      // Phân tích dữ liệu thể hiện tấn công
-      setHome(items[index]);
+    })
+  }, [id])
 
-      //Đồng thời thể hiện bên chịu sát thương
-      ++index
-      if (items.length <= index) {
-        clearInterval(id);
-        return;
-      }
-      // Phân tích dữ liệu thể hiện chịu đòn
-      setAway(items[index]);
-    }, 5000);
-  };
+  useEffect(() => {
+    if(bet.bet.item?.id) {
+      setCentredModal(false)
+    }
+  }, [bet.bet.item])
 
   const [balance, setBalance] = useState<number>(1000);
   const [centredModal, setCentredModal] = useState(false);
@@ -83,7 +58,7 @@ const Home = () => {
     dispatch({
         type: placeBet.type,
         payload: {
-          match_id: 1,
+          match_id: id,
           hero_id: hero_id,
           balance: balance,
         }
@@ -93,22 +68,30 @@ const Home = () => {
 
   return (
     <div className={styles.root}>
+      {/*<h1>Betting</h1>*/}
       <div className={styles.body}>
         <div className={styles.container}>
-          <Row className={styles.card + " justify-content-md-center"}>
+          <Row>
             <Col xs="6">
+              <Countdown date={start_time} />
+            </Col>
+          </Row>
+          <Row className={styles.card + " justify-content-md-center"}>
+            <Col md="6">
               {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
             </Col>
-            <Col xs="6">
+            <Col md="6">
               {away ? <HeroTurn hero={away}/> : <Spinner variant="light" animation="border"/>}
             </Col>
           </Row>
-
         </div>
       </div>
-      <Row className={"justify-content-md-center"}>
-        <MDBBtn onClick={toggleShow}>BET</MDBBtn>
-      </Row>
+      {
+        !bet.bet.item ? <Row className={"justify-content-md-center"}>
+          <MDBBtn onClick={toggleShow}>BET</MDBBtn>
+        </Row> : ''
+      }
+
       <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
         <MDBModalDialog centered>
           <MDBModalContent>
@@ -123,7 +106,7 @@ const Home = () => {
                 <Row>
                   <Col className='xs-6'>
                     <MDBBtn block outline color="success" type='button'
-                      onClick={() => handleBet(home?.id)}
+                            onClick={() => handleBet(home?.id)}
                     >
                       {home?.name}
                     </MDBBtn>
@@ -143,4 +126,4 @@ const Home = () => {
   );
 };
 
-export default memo(Home);
+export default (BettingMatch);

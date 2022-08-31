@@ -24,7 +24,7 @@ const Heroes = () => {
       <Row className={styles.body}>
         {
           !loading && items.length > 0 && items?.map((item: any) => {
-            return <Col md={3} xs={12} style={{  zIndex: 99, marginTop: '25px'}}>
+            return <Col md={3} xs={12} style={{marginTop: '25px'}}>
               <Card className={styles.card}>
                 <motion.div
                   animate={{

@@ -12,7 +12,7 @@ import {IAction} from "../IAction";
 
 function* indexWorker(action: IAction<any>): any {
 	const [response, error] = yield Service.index(action.payload)
-	console.log(response, error)
+
 	if (error) {
 		yield put({type: indexError.type})
 	} else {
@@ -24,13 +24,12 @@ function* indexWorker(action: IAction<any>): any {
 
 function* getCurrentMatchWorker(action: IAction<any>): any {
 	const [response, error] = yield Service.getCurrentMatch()
-	console.log(response, error)
+
 	if (error) {
 		yield put({type: getCurrentMatchError.type})
 	} else {
 			const {data} = response
 			const payload = data ?? response
-			console.log('getCurrentMatchWorker', payload)
 			yield put({type: getCurrentMatchSuccess.type, payload})
 	}
 }

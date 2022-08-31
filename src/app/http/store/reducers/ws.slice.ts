@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 interface IInitialState {
-  socket: any
+  socket: any,
 }
 
 const initialState: IInitialState = {
@@ -17,16 +17,12 @@ export const wsSlice = createSlice({
     wsDisconnect(state, action: PayloadAction<string>) {
       alert('Ds' + action.payload)
     },
-    wsDisconnected(state, action: PayloadAction<string>) {
-      state.socket = null
-      alert('Dst' + action.payload)
-    }
   }
 })
 
 export const {
+  connect,
   wsDisconnect,
-  wsDisconnected,
 } = wsSlice.actions
 
 export default wsSlice.reducer

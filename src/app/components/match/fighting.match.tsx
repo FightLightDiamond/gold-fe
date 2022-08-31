@@ -6,7 +6,7 @@ import {IMatchLog} from "../../interfaces/match-log.interface";
 import HeroTurn from "../hero/hero-select";
 import Countdown from "react-countdown";
 
-const FightingMatch = ({items, start_time}: { items: any, start_time: number }) => {
+const FightingMatch = ({id, items, start_time}: { id: number, items: any, start_time: number }) => {
   /**
    * State
    */
@@ -46,25 +46,25 @@ const FightingMatch = ({items, start_time}: { items: any, start_time: number }) 
     }, 5000);
   };
 
-  const renderer = ({ minutes, seconds }: {minutes: number, seconds: number }) => {
-      return <span>{minutes}:{seconds}</span>;
-  };
-
   return (
-    <div className={styles.root}>
+    <div>
+      {/*<h3>Fighting</h3>*/}
       <div className={styles.body}>
         <div className={styles.container}>
-          <div>
-            {start_time}: <Countdown date={start_time} />
-          </div>
-          <div>
-            ROUND: {home?.round}
-          </div>
-          <Row className={styles.card + " justify-content-md-center"}>
-            <Col md="6">
+          <Row>
+            <Col xs="6">
+              <Countdown date={start_time} />
+            </Col>
+            <Col xs="6">
+              ROUND: {home?.round}
+            </Col>
+          </Row>
+
+          <Row className={styles.card + " justify-content-xs-center"}>
+            <Col xs="6">
               {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
             </Col>
-            <Col md="6">
+            <Col xs="6">
               {away ? <HeroTurn hero={away}/> : <Spinner variant="light" animation="border"/>}
             </Col>
           </Row>
@@ -74,4 +74,4 @@ const FightingMatch = ({items, start_time}: { items: any, start_time: number }) 
   );
 };
 
-export default memo(FightingMatch);
+export default (FightingMatch);

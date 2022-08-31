@@ -1,38 +1,50 @@
 import { io } from "socket.io-client";
-
+import Cookies from "js-cookie";
 const wsEndpoint = process.env.REACT_APP_WS_URL ?? "";
+/**
+ * class WS
+ */
+export class WS {
+  private static client: any = null
+  private static token: string = Cookies.get('token') ?? ''
 
-const socket = io(wsEndpoint, {
-  reconnection: true,
-  reconnectionDelay: 500,
-});
-// let connected = false;
-// const RETRY_INTERVAL = 10000;
+  /**
+   * Get Socket
+   */
+   static async getSocket() {
+    if(this.client !== null) {
+      return this.client;
+    }
 
-// socket.on("disconnect", function () {
-//   connected = false;
-//   console.log("disconnected");
-//   retryConnectOnFailure(RETRY_INTERVAL);
-// });
-//
-// socket.on("connect", function () {
-//   connected = true;
-//   console.log("connect");
-// });
-//
-// const retryConnectOnFailure = (retryInMilliseconds: number) => {
-//   setTimeout(function () {
-//     if (!connected) {
-//       // $.get("/ping", function (data) {
-//       //   connected = true;
-//       //   window.location.href = unescape(window.location.pathname);
-//       // });
-//       retryConnectOnFailure(retryInMilliseconds);
-//     }
-//   }, retryInMilliseconds);
-// };
-//
-// retryConnectOnFailure(RETRY_INTERVAL);
+    this.client = await io(wsEndpoint, {
+      reconnection: true,
+      reconnectionDelay: 500,
+      extraHeaders: {
+        Authorization: `${this.token}`
+      },
+    });
+
+    console.log("this.client", this.client)
+
+    return this.client
+  }
+
+  /**
+   * Reconnect socket
+   * @param token
+   */
+  static async reconnectSocket(token: string) {
+    this.token = token
+    this.client = await io(wsEndpoint, {
+      reconnection: true,
+      reconnectionDelay: 500,
+      extraHeaders: {
+        Authorization: `${this.token}`
+      },
+    });
+  }
+}
+
 
 // const user = ""
 
@@ -62,5 +74,3 @@ const socket = io(wsEndpoint, {
 //   }
 //   // transports: ['polling', 'websocket']
 // });
-
-export { socket };

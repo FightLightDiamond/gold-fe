@@ -49,27 +49,3 @@ body {
   text-align: center;
   transition: 0.5s;
 }
-
-.container .card .content h3 {
-  font-size: 1.6em;
-  color: #fff;
-}
-
-.container .card .content p {
-  font-size: 1em;
-  color: #fff;
-  font-weight: 300;
-}
-
-.container .card .content a {
-  position: relative;
-  display: inline-block;
-  padding: 8px 20px;
-  margin-top: 15px;
-  background: orange;
-  color: #000;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: 500;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}

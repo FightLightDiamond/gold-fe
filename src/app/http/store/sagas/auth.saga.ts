@@ -3,6 +3,9 @@ import {
   signIn,
   signInSuccess,
   signInFail,
+  profile,
+  profileSuccess,
+  profileFail,
 } from '../reducers/auth.slice'
 
 import authService from "../../services/auth.service";
@@ -20,8 +23,21 @@ function* signInWorker(action: IAction<any>): any {
   }
 }
 
+function* profileWorker(action: IAction<any>): any {
+  const [response, error] = yield authService.profile(action.payload)
+
+  if (error) {
+    yield put({type: profileFail.type})
+  } else {
+    const {data} = response
+    const payload = data ?? response
+    yield put({type: profileSuccess.type, payload})
+  }
+}
+
 function* authWatcher() {
   yield takeLeading(signIn.type, signInWorker)
+  yield takeLeading(profile.type, profileWorker)
 }
 
 export default authWatcher

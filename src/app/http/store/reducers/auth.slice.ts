@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import Cookies from "js-cookie";
+import {WS} from "../../ws";
 
 interface IState {
 	loading: boolean,
@@ -15,7 +16,7 @@ const initialState: IState = {
 	signInError: false,
 	user: Cookies.get('user') ? JSON.parse(<string>Cookies.get('user')) : null,
 	token: Cookies.get('token') ?? '',
-	balance: Cookies.get('balance') ? parseInt(<string>Cookies.get('balance')) : 0,
+	balance: Cookies.get('balance') ? Number(Cookies.get('balance')) : 0,
 	isAuthentication: !!Cookies.get('token'),
 }
 
@@ -46,8 +47,30 @@ export const authSlice = createSlice({
 			state.balance = user.balance
 			state.user = user
 			state.loading = false
+
+			void WS.reconnectSocket(token)
 		},
 		signInFail: (state: IState) => {
+			state.loading = false
+			state.isAuthentication = false
+			state.signInError = true
+		},
+		profile: (state: IState) => {
+			state.loading = true
+			state.signInError = false
+		},
+		profileSuccess: (state: IState, action: PayloadAction<any>) => {
+			const user = action.payload
+
+			Cookies.set('user', JSON.stringify(user))
+			Cookies.set('balance', user.balance)
+
+			state.isAuthentication = true
+			state.balance = user.balance
+			state.user = user
+			state.loading = false
+		},
+		profileFail: (state: IState) => {
 			state.loading = false
 			state.isAuthentication = false
 			state.signInError = true
@@ -60,7 +83,16 @@ export const authSlice = createSlice({
 			state.token = ''
 			state.balance = 0
 			state.user = null
-		}
+		},
+		updateBalance: (state: IState, action: PayloadAction<number>) => {
+			console.log('-----updateBalance', state.balance, action.payload, typeof state.balance, typeof action.payload)
+			state.balance = Number(state.balance) + Number(action.payload)
+			Cookies.set('balance', state.balance.toString())
+			Cookies.set('user', JSON.stringify({
+				...state.user,
+				balance: state.balance
+			}))
+		},
 	},
 })
 
@@ -68,7 +100,11 @@ export const {
 	signIn,
 	signInSuccess,
 	signInFail,
-	logout
+	profile,
+	profileSuccess,
+	profileFail,
+	logout,
+	updateBalance
 } = authSlice.actions
 
 export default authSlice.reducer

@@ -52,6 +52,17 @@ const authService = {
 			return [null, error];
 		}
 	},
+	profile: async (changePasswordData: IChangePassword) => {
+		try {
+			const response = await Request.get(
+				`auth/profile`,
+				changePasswordData
+			);
+			return [response.data, null];
+		} catch (error) {
+			return [null, error];
+		}
+	},
 };
 
 export default authService;

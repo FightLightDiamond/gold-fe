@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {call} from "ionicons/icons";
 
-interface IState {
+export interface IBetState {
 	bet: {
 		item: any,
 		loading: boolean
@@ -8,7 +9,7 @@ interface IState {
 	}
 }
 
-const initialState: IState = {
+const initialState: IBetState = {
 	bet: {
 		item: {},
 		loading: false,
@@ -24,11 +25,23 @@ export const betSlice = createSlice({
 			state.bet.loading = true
 			state.bet.error = null
 		},
-		placeBetError: (state: IState, action: PayloadAction<string>) => {
+		placeBetError: (state: IBetState, action: PayloadAction<string>) => {
 			state.bet.loading = false
 			state.bet.error = action.payload
 		},
-		placeBetSuccess: (state: IState, action: PayloadAction<any[]>) => {
+		placeBetSuccess: (state: IBetState, action: PayloadAction<any[]>) => {
+			state.bet.loading = false
+			state.bet.item = action.payload
+		},
+		currentBet: (state, action?: PayloadAction<string>) => {
+			state.bet.loading = true
+			state.bet.error = null
+		},
+		currentBetError: (state: IBetState, action: PayloadAction<string>) => {
+			state.bet.loading = false
+			state.bet.error = action.payload
+		},
+		currentBetSuccess: (state: IBetState, action: PayloadAction<any[]>) => {
 			state.bet.loading = false
 			state.bet.item = action.payload
 		},
@@ -38,7 +51,10 @@ export const betSlice = createSlice({
 export const {
 	placeBet,
 	placeBetError,
-	placeBetSuccess
+	placeBetSuccess,
+	currentBet,
+	currentBetError,
+	currentBetSuccess,
 } = betSlice.actions
 
 export default betSlice.reducer
