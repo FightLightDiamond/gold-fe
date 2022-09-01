@@ -72,7 +72,7 @@ const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_t
       <div className={styles.body}>
         <div className={styles.container}>
           <Row>
-            <Col xs="6">
+            <Col xs="6" className="text-light">
               <Countdown date={start_time} />
             </Col>
           </Row>

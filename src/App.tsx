@@ -9,6 +9,7 @@ import Border from "./pages/border";
 import Login from "./pages/auth/login";
 import Room from "./pages/room";
 import DownClock from "./pages/down-clock";
+import Charts from './pages/charts';
 
 const App = () => {
   return (
@@ -16,10 +17,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="/heroes" element={<Heroes/>}/>
+          <Route path="/charts" element={<Charts/>}/>
           <Route path="/sprite" element={<Sprite/>}/>
           <Route path="/border" element={<Border/>}/>
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/border" element={<Border/>}/>
           <Route path="/room" element={<Room/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
           <Route path="/borer" element={<Border/>}/>

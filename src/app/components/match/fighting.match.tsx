@@ -51,7 +51,7 @@ const FightingMatch = ({id, items, start_time}: { id: number, items: any, start_
       {/*<h3>Fighting</h3>*/}
       <div className={styles.body}>
         <div className={styles.container}>
-          <Row>
+          <Row className="text-light">
             <Col xs="6">
               <Countdown date={start_time} />
             </Col>

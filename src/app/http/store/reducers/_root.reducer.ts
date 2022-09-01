@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { IAction } from '../IAction';
 import authReducer from './auth.slice';
 import betReducer from './bet.slice';
+import chartsReducer from './charts.slice';
 import wsReducer from './ws.slice';
 import tutorialReducer from './tutorial.slice'
 import lessonReducer from './lesson.slice'
@@ -13,6 +14,7 @@ import statisticMatches from './statistic-matches.slice'
 const appReducer = combineReducers({
 	auth: authReducer,
 	bet: betReducer,
+	charts: chartsReducer,
 	hero: heroReducer,
 	lesson: lessonReducer,
 	match: matchReducer,

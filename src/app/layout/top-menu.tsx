@@ -20,9 +20,9 @@ const TopMenu = () => {
           <Nav className="me-auto">
             <Nav.Link style={{color: "#fff"}} href="/">Bet</Nav.Link>
             <Nav.Link style={{color: "#fff"}} href="/heroes">Heroes</Nav.Link>
-            <Nav.Link style={{color: "#fff"}} href="#link">Charts</Nav.Link>
-            <Nav.Link style={{color: "#fff"}} href="#link">News</Nav.Link>
-            <Nav.Link style={{color: "#fff"}} href="#link">Market</Nav.Link>
+            <Nav.Link style={{color: "#fff"}} href="/Charts">Charts</Nav.Link>
+            {/*<Nav.Link style={{color: "#fff"}} href="#link">News</Nav.Link>*/}
+            {/*<Nav.Link style={{color: "#fff"}} href="#link">Market</Nav.Link>*/}
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">

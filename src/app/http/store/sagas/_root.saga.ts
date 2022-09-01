@@ -5,6 +5,7 @@ import matchWatcher from './match.saga';
 import taskWatcher from './task.saga';
 import tutorialWatcher from './tutorial.saga';
 import betWatcher from "./bet.saga";
+import chartsWatcher from "./charts.saga";
 import heroWatcher from "./hero.saga";
 
 export default function* _rootSaga() {
@@ -16,5 +17,6 @@ export default function* _rootSaga() {
     matchWatcher(),
     taskWatcher(),
     tutorialWatcher(),
+    chartsWatcher()
   ]);
 }
