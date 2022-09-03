@@ -1,0 +1,226 @@
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.chart-body {
+  width: 100%;
+}
+.order {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #dd0000;
+    width: 25px;
+  }
+  .peak-icon {
+    display: flex;
+    justify-content: center;
+  }
+  .point-peak {
+    display: grid;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0f0f0f;
+  }
+  .point {
+    display: flex;
+    flex-direction: row;
+  }
+  .icon-gem {
+    width: 16px;
+    height: 16px;
+  }
+  .icon-rank {
+    width: 25px;
+    height: 30px;
+  }
+  .first-rank,
+  .others-rank {
+    width: 160px;
+    height: 95px;
+    background-size: 160px 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .others-rank {
+    width: 42px;
+    height: 55px;
+    background-size: 42px 55px;
+  }
+  .lesson-rank {
+    margin-top: 20px;
+  }
+  .section {
+    background: #ffffff;
+    border: 1px solid #f2f2f2;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 130%;
+    text-align: center;
+    color: #dd0000;
+    margin-top: 20px;
+  }
+  .section-people {
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .img-people {
+    width: 42.78px;
+    border-radius: 100%;
+    border: 2px solid #ff7f76;
+    padding: 4px;
+  }
+  .img-top-one {
+    margin-top: 2.54px;
+    width: 59.24px;
+    height: 59.24px;
+    border-radius: 100%;
+  }
+  .img-others {
+    margin: 9px 1px 5px 2px;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    background: #fff5f4;
+    border-radius: 10px;
+    padding: 10px 20px 10px 10px;
+    align-items: center;
+    margin: 10px 27.5px 20px 27.5px;
+  }
+  .header-people {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .number {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #dd0000;
+    margin-bottom: 0px;
+  }
+  .header-name h1 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    text-transform: uppercase;
+    color: #0f0f0f;
+  }
+  .username {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    text-transform: uppercase;
+  
+    color: #0f0f0f;
+  }
+  .name-rank {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 120%;
+    color: #dd0000;
+    background: #ffeeed;
+    border-radius: 100px;
+    padding: 2px 8px;
+    display: inline-block;
+  }
+  .point {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    color: #0f0f0f;
+  }
+  
+  .peak {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px 10px;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+    margin: 0 27.5px;
+  }
+  .peak-people {
+    align-content: center;
+  }
+  .peak-name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    text-transform: uppercase;
+  
+    color: #0f0f0f;
+    margin-top: 8px;
+  }
+  .peak-rank {
+    display: flex;
+    justify-content: center;
+  }
+  .peak-rank-name {
+    margin-top: 3px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    color: #dd0000;
+    background: #ffeeed;
+    border-radius: 100px;
+    padding: 2px 8px;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .person {
+    display: flex;
+    justify-content: space-between;
+    margin: 18px 27.5px 0px;
+    border-bottom: 1px solid #f2f2f2;
+    align-items: center;
+    padding-bottom: 15px;
+  }
+  .info-person {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .img-person {
+    width: 42.78px;
+    border-radius: 100%;
+  }
+
+  .tab-item {
+    background: white;
+    color: black;
+  }
