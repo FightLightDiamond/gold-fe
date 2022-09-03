@@ -126,3 +126,6 @@
 .text {
   margin: 0 auto
 }
+.active {
+  color: red;
+}
