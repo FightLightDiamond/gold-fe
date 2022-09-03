@@ -12,29 +12,29 @@ const TopMenu = () => {
   const {isAuthentication, balance} = auth
 
   return (
-    <Navbar bg="dark" expand="lg" style={{color: "#fff"}} className="navTop">
+    <Navbar bg="dark" expand="lg" className="navTop text-light">
       <Container >
-        <Navbar.Brand style={{color: "#fff"}} href="#home">HEROX</Navbar.Brand>
+        <Navbar.Brand className={"text-light"} href="/">RICH4FUN</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link style={{color: "#fff"}} href="/">Bet</Nav.Link>
-            <Nav.Link style={{color: "#fff"}} href="/heroes">Heroes</Nav.Link>
-            <Nav.Link style={{color: "#fff"}} href="/Charts">Charts</Nav.Link>
-            {/*<Nav.Link style={{color: "#fff"}} href="#link">News</Nav.Link>*/}
-            {/*<Nav.Link style={{color: "#fff"}} href="#link">Market</Nav.Link>*/}
+            <Nav.Link className={"text-light"} href="/Charts">Charts </Nav.Link>
+            <Nav.Link className={"text-light"} href="/history">Histories</Nav.Link>
+            <Nav.Link className={"text-light"} href="/heroes">Heroes</Nav.Link>
+            {/*<Nav.Link className={"text-light} href="#link">News</Nav.Link>*/}
+            {/*<Nav.Link className={"text-light} href="#link">Market</Nav.Link>*/}
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           {
-            isAuthentication ? <NavDropdown className="text-warning" title={`$${Intl.NumberFormat().format(balance)}`}>
+            isAuthentication ? <NavDropdown className="text-success" title={`$${Intl.NumberFormat().format(balance)}`}>
                 <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => dispatch({type: logout.type})}>
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>
               : <Nav >
-                <Nav.Link style={{color: "#fff"}} href="/login">Login</Nav.Link>
+                <Nav.Link className={"text-light"} href="/login">Login</Nav.Link>
               </Nav>
           }
         </Navbar.Collapse>

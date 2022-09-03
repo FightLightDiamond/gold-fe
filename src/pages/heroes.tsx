@@ -23,8 +23,8 @@ const Heroes = () => {
     <div>
       <Row className={styles.body}>
         {
-          !loading && items.length > 0 && items?.map((item: any) => {
-            return <Col md={3} xs={12} style={{marginTop: '25px'}}>
+          !loading && items.length > 0 && items?.map((item: any, key: number) => {
+            return <Col md={3} xs={12} style={{marginTop: '25px'}} key={key}>
               <Card className={styles.card}>
                 <motion.div
                   animate={{

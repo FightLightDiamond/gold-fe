@@ -1,0 +1,7 @@
+{
+  "title": "Chào mừng bạn đến với react bằng cách sử dụng react-i18next và typecript 4.1",
+  "description": {
+    "part1": "This is an example using multiple namespaces.",
+    "part2": "😉"
+  }
+}

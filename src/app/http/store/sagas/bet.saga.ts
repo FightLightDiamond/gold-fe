@@ -11,6 +11,7 @@ import {
 import betService from "../../services/bet.service";
 import {IAction} from "../IAction";
 import { updateBalance } from '../reducers/auth.slice';
+import { toast } from 'react-toastify';
 
 function* placeBetWorker(action: IAction<any>): any {
   const [response, error] = yield betService.store(action.payload)
@@ -21,8 +22,8 @@ function* placeBetWorker(action: IAction<any>): any {
     const {data} = response
     const payload = data ?? response
     yield put({type: placeBetSuccess.type, payload})
-    console.log('currentBetWorker', payload)
     yield put({type: updateBalance.type, payload: -action.payload.balance})
+    toast("Place bet successfully!");
   }
 }
 

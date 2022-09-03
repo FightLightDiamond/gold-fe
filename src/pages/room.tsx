@@ -9,6 +9,8 @@ import {useEffect, useState} from "react";
 import BettingMatch from "../app/components/match/betting.match";
 import * as __ from 'lodash'
 import { updateBalance } from "../app/http/store/reducers/auth.slice";
+import {toast} from "react-toastify";
+import {MDBIcon} from "mdb-react-ui-kit";
 
 const Room = () => {
   const dispatch = useDispatch();
@@ -34,8 +36,10 @@ const Room = () => {
             type: getCurrentMatchSuccess.type,
             payload: data
           })
+          toast(`The match is betting`, );
         });
         socket.on("matching", (data: any) => {
+          toast(`The match is fighting`);
           dispatch({
             type: getCurrentMatchSuccess.type,
             payload: data
@@ -47,13 +51,14 @@ const Room = () => {
           })
           if(reward) {
             console.log("reward.balance * 2", reward, reward.balance * 2)
+
+            toast(`Congratulations on winning and earning $${reward.balance}!`);
             dispatch({
               type: updateBalance.type,
               payload: reward.balance * 2
             })
             console.log("reward", data);
           }
-
         });
       })
     }
