@@ -29,15 +29,15 @@ export const matchSlice = createSlice({
 	name: 'match',
 	initialState,
 	reducers: {
-		index: (state: IMatchState, action?: PayloadAction<string>) => {
+		getMatches: (state: IMatchState, action?: PayloadAction<string>) => {
 			state.loading = true
 			state.error = null
 		},
-		indexError: (state: IMatchState, action: PayloadAction<string>) => {
+		getMatchesError: (state: IMatchState, action: PayloadAction<string>) => {
 			state.loading = false
 			state.error = action.payload
 		},
-		indexSuccess: (state: IMatchState, action: PayloadAction<any[]>) => {
+		getMatchesSuccess: (state: IMatchState, action: PayloadAction<any[]>) => {
 			state.loading = false
 			state.items = action.payload
 		},
@@ -51,16 +51,15 @@ export const matchSlice = createSlice({
 		},
 		getCurrentMatchSuccess: (state: IMatchState, action: PayloadAction<any[]>) => {
 			state.currentMatch.loading = false
-			console.log('getCurrentMatchSuccess', action.payload)
 			state.currentMatch.item = action.payload
 		},
 	},
 })
 
 export const {
-	index,
-	indexError,
-	indexSuccess,
+	getMatches,
+	getMatchesError,
+	getMatchesSuccess,
 	getCurrentMatch,
 	getCurrentMatchError,
 	getCurrentMatchSuccess

@@ -10,6 +10,8 @@ import Login from "./pages/auth/login";
 import Room from "./pages/room";
 import DownClock from "./pages/down-clock";
 import Charts from './pages/charts';
+import './i18n/config';
+import History from "./pages/match/history";
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/heroes" element={<Heroes/>}/>
           <Route path="/charts" element={<Charts/>}/>
+          <Route path="/history" element={<History/>}/>
+
           <Route path="/sprite" element={<Sprite/>}/>
           <Route path="/border" element={<Border/>}/>
           <Route path="/border" element={<Border/>}/>

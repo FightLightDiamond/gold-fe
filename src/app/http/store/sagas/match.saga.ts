@@ -1,8 +1,8 @@
 import {put, takeLatest} from 'redux-saga/effects'
 import {
-	index,
-	indexError,
-	indexSuccess,
+	getMatches,
+	getMatchesError,
+	getMatchesSuccess,
 	getCurrentMatch,
 	getCurrentMatchError,
 	getCurrentMatchSuccess
@@ -14,11 +14,11 @@ function* indexWorker(action: IAction<any>): any {
 	const [response, error] = yield Service.index(action.payload)
 
 	if (error) {
-		yield put({type: indexError.type})
+		yield put({type: getMatchesError.type})
 	} else {
 			// const {data} = response
 			const payload = response
-			yield put({type: indexSuccess.type, payload})
+			yield put({type: getMatchesSuccess.type, payload})
 	}
 }
 
@@ -35,7 +35,7 @@ function* getCurrentMatchWorker(action: IAction<any>): any {
 }
 
 function* Watcher() {
-	yield takeLatest(index.type, indexWorker)
+	yield takeLatest(getMatches.type, indexWorker)
 	yield takeLatest(getCurrentMatch.type, getCurrentMatchWorker)
 }
 

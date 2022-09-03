@@ -1,146 +1,104 @@
-import {useDispatch, useSelector} from "react-redux";
-import {memo, useEffect, useState} from "react";
-import styles from "../styles/Home.module.css";
-import {IMatchState, index} from "../app/http/store/reducers/match.slice";
+import {WS} from "../app/http/ws";
 import {useEffectOnce} from "../app/hooks/useEffectOnce";
-import {Col, Row} from "react-bootstrap";
-import HeroTurn from "../app/components/hero/hero-select";
-import {IMatchLog} from "../app/interfaces/match-log.interface";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentMatch, getCurrentMatchSuccess, IMatchState} from "../app/http/store/reducers/match.slice";
 import {RootState} from "../app/http/store";
-import Spinner from 'react-bootstrap/Spinner';
-import {
-  MDBBtn,
-  MDBInput,
-  MDBModal,
-  MDBModalBody,
-  MDBModalContent,
-  MDBModalDialog,
-  MDBModalHeader,
-  MDBModalTitle,
-} from 'mdb-react-ui-kit';
-import {placeBet} from "../app/http/store/reducers/bet.slice";
+import {BETTING_STATUS, FIGHTING_STATUS} from "../constants/bet-status.constant"
+import FightingMatch from "../app/components/match/fighting.match";
+import {useEffect, useState} from "react";
+import BettingMatch from "../app/components/match/betting.match";
+import * as __ from 'lodash'
+import { updateBalance } from "../app/http/store/reducers/auth.slice";
+import {toast} from "react-toastify";
+import {MDBIcon} from "mdb-react-ui-kit";
 
 const Home = () => {
-  /**
-   * Selector
-   */
   const dispatch = useDispatch();
   const match: IMatchState = useSelector((state: RootState) => state.match);
-  const items: IMatchLog[] = match.items;
+  const auth = useSelector((state: RootState) => state.auth);
+  const {currentMatch} = match
+  const {item} = currentMatch
+  const {start_time, id} = item
 
-  /**
-   * State
-   */
-  const [home, setHome] = useState<IMatchLog>();
-  const [away, setAway] = useState<IMatchLog>();
-
-  /**
-   * useEffect
-   */
   useEffectOnce(() => {
     dispatch({
-      type: index.type
-    });
+      type: getCurrentMatch.type
+    })
+
+    const getWS = async () => {
+      const socket = await WS.getSocket()
+      socket.on("connect", () => {
+        socket.emit("joinRoom", "match");
+        socket.emit("joinRoom", "all")
+
+        socket.on("betting", (data: any) => {
+          dispatch({
+            type: getCurrentMatchSuccess.type,
+            payload: data
+          })
+          toast(`The match is betting`, );
+        });
+        socket.on("matching", (data: any) => {
+          toast(`The match is fighting`);
+          dispatch({
+            type: getCurrentMatchSuccess.type,
+            payload: data
+          })
+        });
+        socket.on("reward", (data: any) => {
+          const reward: any = __.find(data, (o) => {
+            return o.user_id === auth.user.id
+          })
+          if(reward) {
+            console.log("reward.balance * 2", reward, reward.balance * 2)
+
+            toast(`Congratulations on winning and earning $${reward.balance}!`);
+            dispatch({
+              type: updateBalance.type,
+              payload: reward.balance * 2
+            })
+            console.log("reward", data);
+          }
+        });
+      })
+    }
+
+    void getWS();
   });
 
+  const [hero_info, setHeroInfo] = useState([])
+  const [turns, setTurns] = useState([])
+
   useEffect(() => {
-    if (items.length > 0) {
-      setMatch();
+    if(item.status === BETTING_STATUS) {
+      try {
+        const hero_info = item.hero_info.length === 2 ? item.hero_info : JSON.parse(item.hero_info)
+        console.log({hero_info})
+        setHeroInfo(hero_info)
+      } catch (e) {
+
+      }
     }
-  }, [items]);
+    if(item.status === FIGHTING_STATUS) {
+      try {
+        const turns = item.turns
+        setTurns(turns)
+      } catch (e) {
 
-  const setMatch = () => {
-    let index = -1;
-    /**
-     * Tạm thời set tổng 1 pha đánh từ A -> B là 1 s
-     */
-    const id = setInterval(() => {
-      //Thể hiện hiệu ứng bên Đánh
-      ++index
-      if (items.length <= index) {
-        clearInterval(id);
-        return;
       }
-      // Phân tích dữ liệu thể hiện tấn công
-      setHome(items[index]);
-
-      //Đồng thời thể hiện bên chịu sát thương
-      ++index
-      if (items.length <= index) {
-        clearInterval(id);
-        return;
-      }
-      // Phân tích dữ liệu thể hiện chịu đòn
-      setAway(items[index]);
-    }, 5000);
-  };
-
-  const [balance, setBalance] = useState<number>(1000);
-  const [centredModal, setCentredModal] = useState(false);
-  const toggleShow = () => setCentredModal(!centredModal);
-
-  const handleBet = (hero_id: number | undefined) => {
-    dispatch({
-        type: placeBet.type,
-        payload: {
-          match_id: 1,
-          hero_id: hero_id,
-          balance: balance,
-        }
-      }
-    )
-  }
+    }
+  }, [item])
 
   return (
-    <div className={styles.root}>
-      <div className={styles.body}>
-        <div className={styles.container}>
-          <Row className={styles.card + " justify-content-md-center"}>
-            <Col xs="6">
-              {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
-            </Col>
-            <Col xs="6">
-              {away ? <HeroTurn hero={away}/> : <Spinner variant="light" animation="border"/>}
-            </Col>
-          </Row>
-
-        </div>
+    <div className={"container"}>
+      <div>
+        {
+          item.status === BETTING_STATUS ? <BettingMatch id={id} start_time={parseInt(start_time) + 60* 1*1000} items={hero_info} />
+            : item.status === FIGHTING_STATUS ? <FightingMatch id={id} start_time={parseInt(start_time) + 60* 3*1000 } items={turns} />  : "END_STATUS"
+        }
       </div>
-      <Row className={"justify-content-md-center"}>
-        <MDBBtn onClick={toggleShow}>BET</MDBBtn>
-      </Row>
-      <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
-        <MDBModalDialog centered>
-          <MDBModalContent>
-            <MDBModalHeader>
-              <MDBModalTitle>Betting</MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
-            </MDBModalHeader>
-            <MDBModalBody>
-              <form>
-                <MDBInput onChange={(e) => setBalance(parseInt(e.target.value))}
-                          className='mb-4' defaultValue={1000} type='number' label='Gold for bet'/>
-                <Row>
-                  <Col className='xs-6'>
-                    <MDBBtn block outline color="success" type='button'
-                      onClick={() => handleBet(home?.id)}
-                    >
-                      {home?.name}
-                    </MDBBtn>
-                  </Col>
-                  <Col className='xs-6'>
-                    <MDBBtn block outline color="danger" type='button' onClick={() => handleBet(away?.id)}>
-                      {away?.name}
-                    </MDBBtn>
-                  </Col>
-                </Row>
-              </form>
-            </MDBModalBody>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
     </div>
   );
 };
 
-export default memo(Home);
+export default Home;

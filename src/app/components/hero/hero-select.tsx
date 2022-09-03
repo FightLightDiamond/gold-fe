@@ -4,6 +4,17 @@ import {motion} from "framer-motion";
 import {IMatchLog} from "../../interfaces/match-log.interface";
 import {ProgressBar} from "react-bootstrap";
 
+const skills: any = {
+  Chiron: "tăng atk bằng 80% tỉ lệ % máu bị mất. Ví dụ máu giảm 50% tăng 40% atk, giảm về 90% tăng 72% dame",
+  Hell: "1. Đối thủ chết luôn nếu HP nhỏ hơn 30%. 2. Khi bản thân HP < 70% và máu ít đối thủ, tăng dame 10% bằng lượng (hp đối phương - hp bản thân) ",
+  Valkyrie: "mỗi turn đốt 2% máu cộng dồn tối đa 5 lần",
+  Hera: "1. -25% atk đối phương khi kích hoạt nội tại. 2. Máu dưới 80%:  33% kháng nội tại đối phương, ngược lại 67% tăng 20% def và 15% crit dmg",
+  Darklord: "khi máu dưới 40% HP, +55% atk và +50% def",
+  Poseidon: "atk +7% tối đa 10 lần, tăng 2% def",
+  Phoenix: "máu dưới 60% hồi lại 40% HP bị mất, x2 def, cộng thêm 20% tỉ lệ crit",
+  Fenrir: "5% crit rate, 15% crit_dame mỗi lượt",
+}
+
 const HeroTurn = ({hero}: { hero: IMatchLog }) => {
   return <Tilt
     options={{
@@ -72,6 +83,7 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
           className="img-thumbnail"
         />
       </motion.div>
+      <p className="text-light text-center">Nội tại: {skills[hero.name]}</p>
     </motion.div>
   </Tilt>
 }

@@ -1,4 +1,4 @@
-import {memo, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import styles from "../../../styles/fighting-match.module.css";
 import {Col, Row} from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
@@ -6,7 +6,8 @@ import {IMatchLog} from "../../interfaces/match-log.interface";
 import HeroTurn from "../hero/hero-select";
 import Countdown from "react-countdown";
 import {
-  MDBBtn, MDBInput,
+  MDBBtn,
+  MDBInput,
   MDBModal,
   MDBModalBody,
   MDBModalContent,
@@ -45,7 +46,7 @@ const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_t
   }, [id])
 
   useEffect(() => {
-    if(bet.bet.item?.id) {
+    if (bet.bet.item?.id) {
       setCentredModal(false)
     }
   }, [bet.bet.item])
@@ -73,7 +74,7 @@ const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_t
         <div className={styles.container}>
           <Row>
             <Col xs="6" className="text-light">
-              <Countdown date={start_time} />
+              <Countdown date={start_time}/>
             </Col>
           </Row>
           <Row className={styles.card + " justify-content-md-center"}>

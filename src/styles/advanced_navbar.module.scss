@@ -1,0 +1,105 @@
+.all {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.advanced_container {
+  position: fixed;
+  left: 47.5%;
+  top: 80%;
+  z-index: 9999;
+  transition: 0.5s;
+  color: white;
+}
+
+.advanced_container .advanced_navigation {
+  position: relative;
+  width: 80px;
+  height: 60px;
+  background: #333;
+  border-radius: 10px;
+  /*overflow: hidden;*/
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+}
+
+.advanced_container .advanced_navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+}
+
+.advanced_container .advanced_navigation ul li {
+  position: relative;
+  list-style: none;
+  width: 80px;
+}
+
+.advanced_container .advanced_navigation ul li:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.advanced_container .advanced_navigation ul li a {
+  position: relative;
+  display: flex;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  color: #333;
+  font-weight: 500;
+}
+
+.advanced_container .advanced_navigation ul li a .icon:hover{
+  position: relative;
+  display: block;
+  min-width: 80px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  transition: 0.5s;
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.advanced_container .advanced_navigation ul li a .icon:hover {
+  color: whitesmoke;
+}
+
+.advanced_container .advanced_navigation ul li a .icon .fa {
+  font-size: 24px;
+}
+
+.advanced_container .advanced_navigation.show {
+  width: 320px
+}
+
+.toggle {
+  position: absolute;
+  top: calc(50% - 15px);
+  right: -20px;
+  width: 30px;
+  height: 30px;
+  background-color: #555;
+  cursor: pointer;
+  border: 3px solid whitesmoke;
+  border-radius: 50%;
+}
+
+.toggle::before {
+  content: ">";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  line-height: 25px;
+  text-align: center;
+  color: whitesmoke;
+  font-size: 10px;
+}
+
+.toggle.show::before {
+  content: "<";
+}
