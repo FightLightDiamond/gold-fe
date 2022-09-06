@@ -1,4 +1,5 @@
 import styles from '../styles/card.module.css'
+import '../styles/chart.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffectOnce} from "../app/hooks/useEffectOnce";
 import {getGoldCharts } from "../app/http/store/reducers/charts.slice";
