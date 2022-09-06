@@ -7,10 +7,10 @@ import store from "./app/http/store";
 import {AbilityContext} from './app/casl/can';
 import ability from "./app/casl/ability.casl";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'mdb-react-ui-kit/dist/css/mdb.min.css'
-import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'font-awesome/css/font-awesome.min.css';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css'
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
 const root = ReactDOM.createRoot(

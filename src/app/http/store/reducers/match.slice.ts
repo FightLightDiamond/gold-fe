@@ -10,7 +10,10 @@ export interface IMatchState {
 		item: any,
 		loading: boolean
 		error: string | null
-	}
+	},
+	home: any,
+	away: any
+	intervalID: any
 }
 
 const initialState: IMatchState = {
@@ -22,7 +25,10 @@ const initialState: IMatchState = {
 		item: {},
 		loading: false,
 		error: null
-	}
+	},
+	home: {},
+	away: {},
+	intervalID: null
 }
 
 export const matchSlice = createSlice({
@@ -32,6 +38,7 @@ export const matchSlice = createSlice({
 		getMatches: (state: IMatchState, action?: PayloadAction<string>) => {
 			state.loading = true
 			state.error = null
+			clearInterval(state.intervalID)
 		},
 		getMatchesError: (state: IMatchState, action: PayloadAction<string>) => {
 			state.loading = false
@@ -53,6 +60,16 @@ export const matchSlice = createSlice({
 			state.currentMatch.loading = false
 			state.currentMatch.item = action.payload
 		},
+		setTurn(state: IMatchState, action: PayloadAction<any>) {
+			state.home = action.payload.home
+			state.away = action.payload.away
+		},
+		setIntervalID(state: IMatchState, action: PayloadAction<any>) {
+			state.intervalID = action.payload
+		},
+		clearInterval(state: IMatchState) {
+			clearInterval(state.intervalID)
+		},
 	},
 })
 
@@ -62,7 +79,9 @@ export const {
 	getMatchesSuccess,
 	getCurrentMatch,
 	getCurrentMatchError,
-	getCurrentMatchSuccess
+	getCurrentMatchSuccess,
+	setTurn,
+	setIntervalID
 } = matchSlice.actions
 
 export default matchSlice.reducer

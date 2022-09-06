@@ -43,7 +43,7 @@ const Heroes = () => {
                     rotate: 0,
                   }}
                 >
-                  <Card.Img className={styles.imgBx} variant="top" src={`http://localhost:3000/img/heroes/${item.name}.png`} />
+                  <Card.Img className={styles.imgBx} variant="top" src={`/img/heroes/${item.name}.png`} />
                   <div className={styles.overlay} style={{display: activeId.includes(index) ? 'flex' : 'none'}}>
                     <div className={styles.text}> {item.story}</div>
                   </div>

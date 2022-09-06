@@ -15,7 +15,7 @@ export interface IMatchLog extends IHero {
   is_active_skill: boolean;
   take_skill_dmg: number;
   take_dmg: number;
-  round: number;
+  turn_number: number;
 
   //Base stats
   current_hp?: number;

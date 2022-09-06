@@ -21,6 +21,7 @@ import {RootState} from "../../http/store";
 
 const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_time: number }) => {
   const bet: IBetState = useSelector((state: RootState) => state.bet);
+  const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   /**
    * State
@@ -37,13 +38,15 @@ const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_t
 
   useEffect(() => {
     //Get bet buy match id
-    dispatch({
-      type: currentBet.type,
-      payload: {
-        match_id: id
-      }
-    })
-  }, [id])
+    if (auth.isAuthentication) {
+      dispatch({
+        type: currentBet.type,
+        payload: {
+          match_id: id
+        }
+      })
+    }
+  }, [id, auth])
 
   useEffect(() => {
     if (bet.bet.item?.id) {
@@ -68,25 +71,20 @@ const BettingMatch = ({id, items, start_time}: { id: number, items: any, start_t
   }
 
   return (
-    <div className={styles.root}>
-      {/*<h1>Betting</h1>*/}
-      <div className={styles.body}>
-        <div className={styles.container}>
-          <Row>
-            <Col xs="6" className="text-light">
-              <Countdown date={start_time}/>
-            </Col>
-          </Row>
-          <Row className={styles.card + " justify-content-md-center"}>
-            <Col md="6">
-              {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
-            </Col>
-            <Col md="6">
-              {away ? <HeroTurn hero={away}/> : <Spinner variant="light" animation="border"/>}
-            </Col>
-          </Row>
-        </div>
-      </div>
+    <div>
+      <Row className="text-light">
+        <Col xs="6">
+          BET TIME: <Countdown date={start_time}/>
+        </Col>
+      </Row>
+      <Row className={styles.card + " justify-content-md-center"}>
+        <Col md="6">
+          {home ? <HeroTurn hero={home}/> : <Spinner variant="light" animation="border"/>}
+        </Col>
+        <Col md="6">
+          {away ? <HeroTurn hero={away}/> : <Spinner variant="light" animation="border"/>}
+        </Col>
+      </Row>
       {
         !bet.bet.item ? <Row className={"justify-content-md-center"}>
           <MDBBtn onClick={toggleShow}>BET</MDBBtn>

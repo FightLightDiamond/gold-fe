@@ -10,7 +10,6 @@ import BettingMatch from "../app/components/match/betting.match";
 import * as __ from 'lodash'
 import { updateBalance } from "../app/http/store/reducers/auth.slice";
 import {toast} from "react-toastify";
-import {MDBIcon} from "mdb-react-ui-kit";
 
 const Room = () => {
   const dispatch = useDispatch();
@@ -93,7 +92,7 @@ const Room = () => {
     <div className={"container"}>
       <div>
         {
-          item.status === BETTING_STATUS ? <BettingMatch id={id} start_time={parseInt(start_time) + 60* 1*1000} items={hero_info} />
+          item.status === BETTING_STATUS ? <BettingMatch id={id} start_time={parseInt(start_time) + 60*1000} items={hero_info} />
           : item.status === FIGHTING_STATUS ? <FightingMatch id={id} start_time={parseInt(start_time) + 60* 3*1000 } items={turns} />  : "END_STATUS"
         }
       </div>

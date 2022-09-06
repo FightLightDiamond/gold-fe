@@ -1,4 +1,3 @@
-import styles from "../../../styles/Home.module.css";
 import {Tilt} from "../Tilt";
 import {motion} from "framer-motion";
 import {IMatchLog} from "../../interfaces/match-log.interface";
@@ -23,15 +22,7 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
       max: 10,
     }}
   >
-    <motion.div
-      animate={{
-        opacity: hero.current_hp ? 1 : 0,
-      }}
-      transition={{
-        duration: 1,
-        // repeat: 2,
-      }}
-      className={styles.content}>
+    <div>
       <ProgressBar label={hero.current_hp} variant="danger" now={(hero.current_hp)} max={hero.hp}/>
       <ProgressBar label={hero.current_atk} variant="warning" now={(hero.current_atk)} max={hero.atk * 3}/>
       <ProgressBar label={hero.current_def} variant="info" now={(hero.current_def)} max={hero.def * 3}/>
@@ -39,7 +30,6 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
       <ProgressBar label={hero.current_crit_dmg} now={(hero.current_crit_dmg)} max={400}/>
       <div>
         <motion.h1
-          initial={{y: 10, height: 20}}
           animate={{
             opacity: hero.take_dmg ? 1 : 0,
           }}
@@ -49,7 +39,6 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
           }}
           className="text-warning text-center">{hero.take_skill_dmg ? "-" + hero.take_skill_dmg : ''}&nbsp;</motion.h1>
         <motion.h1
-          initial={{y: 10, height: 20}}
           animate={{
             opacity: hero.take_dmg ? 1 : 0,
           }}
@@ -61,17 +50,14 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
           }}
           className="text-danger text-center">{hero.take_dmg ? "-" + hero.take_dmg : ''}&nbsp;</motion.h1>
       </div>
-      <motion.div className={styles.img}
+      <motion.div
                   key={hero.name}
                   animate={{
-                    scale: !hero.take_dmg ? [0.5, 0.68] : 0.68,
+                    scale: !hero.take_dmg ? [0.5, 0.8] : 0.8,
                     opacity: !hero.take_dmg ? [0.5, 1] : 1,
                   }}
                   transition={{
                     duration: 1,
-                  }}
-                  initial={{
-                    scale: 0.68
                   }}
                   exit={{
                     scale: 1,
@@ -80,11 +66,11 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
         <img
           src={`/img/heroes/${hero?.name}.png`}
           alt="of the author"
-          className="img-thumbnail"
+          className="img-fluid"
         />
       </motion.div>
       <p className="text-light text-center">Nội tại: {skills[hero.name]}</p>
-    </motion.div>
+    </div>
   </Tilt>
 }
 

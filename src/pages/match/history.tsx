@@ -41,7 +41,7 @@ const History = () => {
       <Row>
         <h1 className="text-light">Lịch sử trận đấu</h1>
         {
-          loading ? "" :<div>
+          loading ? "Loading" :<div>
             <MDBTable className='table-dark'>
               <MDBTableHead>
                 <tr>
@@ -54,7 +54,7 @@ const History = () => {
               </MDBTableHead>
               <MDBTableBody>
                 {
-                  items?.items?.length > 0 && items.items?.map((item: any, key: number) => {
+                   items?.items?.map((item: any, key: number) => {
                     return <tr key={key}>
                       <th scope='row'>{key + 1}</th>
                       <td>{hee.get(item.winner)}</td>

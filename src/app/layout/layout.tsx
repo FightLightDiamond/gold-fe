@@ -1,19 +1,19 @@
-import {memo, useContext, useEffect} from "react";
+import {memo, useContext, useEffect, useState} from "react";
 import TopMenu from "./top-menu";
 import {abilityRoles} from "../casl/";
 import {AbilityContext} from "../casl/can";
 import Container from "react-bootstrap/Container";
 import {useEffectOnce} from "../hooks/useEffectOnce";
 import {WS} from '../http/ws'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {profile} from "../http/store/reducers/auth.slice";
 import {ToastContainer} from "react-toastify";
-// import styles from "../../styles/advanced_navbar.module.css"
-import {MDBIcon} from "mdb-react-ui-kit";
+import {RootState} from "../http/store";
 
 const Layout = ({children}: any) => {
   const dispatch = useDispatch()
   const ability = useContext(AbilityContext);
+  const auth = useSelector((state: RootState) => state.auth);
 
   useEffectOnce(() => {
     const getSW = async () => {
@@ -28,8 +28,15 @@ const Layout = ({children}: any) => {
       });
     }
     void getSW()
-    dispatch({type: profile.type})
+
   })
+
+  useEffect(() => {
+    if(auth.isAuthentication) {
+      dispatch({type: profile.type})
+    }
+  }, [auth.isAuthentication]);
+
 
   useEffect(() => {
     const role = "user";
@@ -41,17 +48,17 @@ const Layout = ({children}: any) => {
   return (
     <>
       <TopMenu/>
-      <Container>{children}</Container>
+      <Container style={{
+        marginTop: "70px"
+      }}>{children}</Container>
       <ToastContainer
-        position="top-right"
+        position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
+        rtl={true}
         draggable
-        pauseOnHover
         theme={"dark"}
       />
     </>

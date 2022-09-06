@@ -10,7 +10,6 @@ import BettingMatch from "../app/components/match/betting.match";
 import * as __ from 'lodash'
 import { updateBalance } from "../app/http/store/reducers/auth.slice";
 import {toast} from "react-toastify";
-import {MDBIcon} from "mdb-react-ui-kit";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -71,30 +70,21 @@ const Home = () => {
 
   useEffect(() => {
     if(item.status === BETTING_STATUS) {
-      try {
-        const hero_info = item.hero_info.length === 2 ? item.hero_info : JSON.parse(item.hero_info)
-        console.log({hero_info})
-        setHeroInfo(hero_info)
-      } catch (e) {
-
-      }
+      const hero_info = item.hero_info
+      setHeroInfo(hero_info)
     }
     if(item.status === FIGHTING_STATUS) {
-      try {
-        const turns = item.turns
-        setTurns(turns)
-      } catch (e) {
-
-      }
+      const turns = item.turns
+      setTurns(turns)
     }
-  }, [item])
+  }, [item.id, item.status])
 
   return (
     <div className={"container"}>
       <div>
         {
-          item.status === BETTING_STATUS ? <BettingMatch id={id} start_time={parseInt(start_time) + 60* 1*1000} items={hero_info} />
-            : item.status === FIGHTING_STATUS ? <FightingMatch id={id} start_time={parseInt(start_time) + 60* 3*1000 } items={turns} />  : "END_STATUS"
+          item.status === BETTING_STATUS ? <BettingMatch id={id} start_time={parseInt(start_time) + 60*1000} items={hero_info} />
+            : item.status === FIGHTING_STATUS ? <FightingMatch id={id} start_time={parseInt(start_time) + 60*3*1000 } items={turns} />  : "END_STATUS"
         }
       </div>
     </div>

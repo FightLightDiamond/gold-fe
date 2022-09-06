@@ -1,45 +1,87 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import {NavDropdown} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../http/store";
+import {
+  MDBCollapse,
+  MDBContainer,
+  MDBDropdown,
+  MDBDropdownItem,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBIcon,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBNavbarNav,
+  MDBNavbarToggler,
+} from 'mdb-react-ui-kit';
+import {useState} from "react";
 import {logout} from '../http/store/reducers/auth.slice'
 
 const TopMenu = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch()
   const {isAuthentication, balance} = auth
-
+  const [showBasic, setShowBasic] = useState(false);
   return (
-    <Navbar bg="dark" expand="lg" className="navTop text-light">
-      <Container >
-        <Navbar.Brand className={"text-light"} href="/">RICH4FUN</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link className={"text-light"} href="/Charts">Charts </Nav.Link>
-            <Nav.Link className={"text-light"} href="/history">Histories</Nav.Link>
-            <Nav.Link className={"text-light"} href="/heroes">Heroes</Nav.Link>
-            {/*<Nav.Link className={"text-light} href="#link">News</Nav.Link>*/}
-            {/*<Nav.Link className={"text-light} href="#link">Market</Nav.Link>*/}
-          </Nav>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
+    <MDBNavbar expand='sm' fixed='top' dark bgColor='dark'>
+      <MDBContainer fluid>
+        <MDBNavbarBrand href='/'>I'M RICH</MDBNavbarBrand>
+        <MDBNavbarToggler
+          aria-controls='navbarSupportedContent'
+          aria-expanded='false'
+          aria-label='Toggle navigation'
+          onClick={() => setShowBasic(!showBasic)}
+        >
+          <MDBIcon icon='bars' fas/>
+        </MDBNavbarToggler>
+
+        <MDBCollapse navbar show={showBasic}>
+          <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
+            <MDBNavbarItem>
+              <MDBNavbarLink aria-current='page' href='/heroes'>
+                Hero
+              </MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink href='/history'>Histories</MDBNavbarLink>
+            </MDBNavbarItem>
+
+            <MDBNavbarItem>
+              <MDBNavbarLink href='/charts'>Charts</MDBNavbarLink>
+            </MDBNavbarItem>
+          </MDBNavbarNav>
+
           {
-            isAuthentication ? <NavDropdown className="text-success" title={`$${Intl.NumberFormat().format(balance)}`}>
-                <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => dispatch({type: logout.type})}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-              : <Nav >
-                <Nav.Link className={"text-light"} href="/login">Login</Nav.Link>
-              </Nav>
+            !isAuthentication ?
+              <MDBNavbarNav right fullWidth={false} className='mb-2 mb-lg-0'>
+                <MDBNavbarItem className='me-3 me-lg-0'>
+                  <MDBNavbarLink href="/login">
+                    <MDBIcon fas icon="sign-in-alt"/>
+                  </MDBNavbarLink>
+                </MDBNavbarItem>
+                <MDBNavbarItem className='me-3 me-lg-0'>
+                  <MDBNavbarLink href='#'>
+                    <MDBIcon fas icon="user-plus"/>
+                  </MDBNavbarLink>
+                </MDBNavbarItem>
+              </MDBNavbarNav>
+              : <MDBNavbarNav right fullWidth={false} className='mb-2 mb-lg-0'><MDBNavbarItem>
+                <MDBDropdown>
+                  <MDBDropdownToggle tag='a' className='nav-link text-warning'>
+                    {`$${Intl.NumberFormat().format(balance)}`}
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu>
+                    <MDBDropdownItem link>Profile</MDBDropdownItem>
+                    <MDBDropdownItem link onClick={() => dispatch({type: logout.type})}>Logout</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavbarItem>
+              </MDBNavbarNav>
           }
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </MDBCollapse>
+      </MDBContainer>
+    </MDBNavbar>
   );
 }
 

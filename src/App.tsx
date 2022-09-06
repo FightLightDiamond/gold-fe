@@ -12,6 +12,7 @@ import DownClock from "./pages/down-clock";
 import Charts from './pages/charts';
 import './i18n/config';
 import History from "./pages/match/history";
+import Portfolio from "./pages/portfolio";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/room" element={<Room/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
           <Route path="/borer" element={<Border/>}/>
+          <Route path="/portfolio" element={<Portfolio/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>
