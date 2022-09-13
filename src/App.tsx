@@ -13,6 +13,7 @@ import Charts from './pages/charts';
 import './i18n/config';
 import History from "./pages/match/history";
 import Portfolio from "./pages/portfolio";
+import EloMatchCharts from "./pages/elo-match";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/heroes" element={<Heroes/>}/>
+          <Route path="/elo-match" element={<EloMatchCharts/>}/>
           <Route path="/charts" element={<Charts/>}/>
           <Route path="/history" element={<History/>}/>
 

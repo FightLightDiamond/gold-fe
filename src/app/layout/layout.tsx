@@ -1,4 +1,4 @@
-import {memo, useContext, useEffect, useState} from "react";
+import {memo, useContext, useEffect} from "react";
 import TopMenu from "./top-menu";
 import {abilityRoles} from "../casl/";
 import {AbilityContext} from "../casl/can";
@@ -28,11 +28,10 @@ const Layout = ({children}: any) => {
       });
     }
     void getSW()
-
   })
 
   useEffect(() => {
-    if(auth.isAuthentication) {
+    if (auth.isAuthentication) {
       dispatch({type: profile.type})
     }
   }, [auth.isAuthentication]);
@@ -54,11 +53,6 @@ const Layout = ({children}: any) => {
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={true}
-        draggable
         theme={"dark"}
       />
     </>

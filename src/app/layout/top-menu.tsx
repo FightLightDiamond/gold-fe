@@ -48,6 +48,10 @@ const TopMenu = () => {
             </MDBNavbarItem>
 
             <MDBNavbarItem>
+              <MDBNavbarLink href='/elo-match'>Elo</MDBNavbarLink>
+            </MDBNavbarItem>
+
+            <MDBNavbarItem>
               <MDBNavbarLink href='/charts'>Charts</MDBNavbarLink>
             </MDBNavbarItem>
           </MDBNavbarNav>

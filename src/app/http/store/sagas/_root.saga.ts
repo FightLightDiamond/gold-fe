@@ -7,6 +7,8 @@ import tutorialWatcher from './tutorial.saga';
 import betWatcher from "./bet.saga";
 import chartsWatcher from "./charts.saga";
 import heroWatcher from "./hero.saga";
+import userHeroWatcher from "./user-hero.saga";
+import eloMatchWatcher  from "./elo-match.saga";
 
 export default function* _rootSaga() {
   yield all([
@@ -17,6 +19,8 @@ export default function* _rootSaga() {
     matchWatcher(),
     taskWatcher(),
     tutorialWatcher(),
-    chartsWatcher()
+    chartsWatcher(),
+    userHeroWatcher(),
+    eloMatchWatcher(),
   ]);
 }

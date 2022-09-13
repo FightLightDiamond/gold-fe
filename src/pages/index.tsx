@@ -5,7 +5,7 @@ import {getCurrentMatch, getCurrentMatchSuccess, IMatchState} from "../app/http/
 import {RootState} from "../app/http/store";
 import {BETTING_STATUS, FIGHTING_STATUS} from "../constants/bet-status.constant"
 import FightingMatch from "../app/components/match/fighting.match";
-import {useEffect, useState} from "react";
+import {memo, useEffect, useState} from "react";
 import BettingMatch from "../app/components/match/betting.match";
 import * as __ from 'lodash'
 import { updateBalance } from "../app/http/store/reducers/auth.slice";
@@ -91,4 +91,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

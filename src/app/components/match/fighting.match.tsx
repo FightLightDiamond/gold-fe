@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {memo, useEffect, useState} from "react";
 import styles from "../../../styles/fighting-match.module.css";
 import {Col, Row} from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
@@ -79,4 +79,4 @@ const FightingMatch = ({id, items, start_time}: { id: number, items: any, start_
   );
 };
 
-export default (FightingMatch);
+export default memo(FightingMatch);
