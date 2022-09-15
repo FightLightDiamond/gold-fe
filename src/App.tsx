@@ -14,6 +14,7 @@ import './i18n/config';
 import History from "./pages/match/history";
 import Portfolio from "./pages/portfolio";
 import EloMatchCharts from "./pages/elo-match";
+import Register from "./pages/auth/register";
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/sign-in" element={<Login/>}/>
+          <Route path="/sign-up" element={<Register/>}/>
           <Route path="/heroes" element={<Heroes/>}/>
           <Route path="/elo-match" element={<EloMatchCharts/>}/>
           <Route path="/charts" element={<Charts/>}/>

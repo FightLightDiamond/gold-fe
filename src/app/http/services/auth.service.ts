@@ -9,7 +9,7 @@ interface ISignInData extends IAuthData {
 }
 
 interface ISignUpData extends IAuthData {
-	rePassword: string
+	confirmation_password: string
 }
 
 interface IChangePassword {

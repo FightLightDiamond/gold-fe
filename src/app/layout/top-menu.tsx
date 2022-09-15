@@ -60,12 +60,12 @@ const TopMenu = () => {
             !isAuthentication ?
               <MDBNavbarNav right fullWidth={false} className='mb-2 mb-lg-0'>
                 <MDBNavbarItem className='me-3 me-lg-0'>
-                  <MDBNavbarLink href="/login">
+                  <MDBNavbarLink href="/sign-in">
                     <MDBIcon fas icon="sign-in-alt"/>
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem className='me-3 me-lg-0'>
-                  <MDBNavbarLink href='#'>
+                  <MDBNavbarLink href='/sign-up'>
                     <MDBIcon fas icon="user-plus"/>
                   </MDBNavbarLink>
                 </MDBNavbarItem>

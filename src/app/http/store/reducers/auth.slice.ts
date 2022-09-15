@@ -9,6 +9,7 @@ interface IState {
 	token: string,
 	balance: number,
 	isAuthentication: boolean
+	signUpped: boolean
 }
 
 const initialState: IState = {
@@ -18,6 +19,7 @@ const initialState: IState = {
 	token: Cookies.get('token') ?? '',
 	balance: Cookies.get('balance') ? Number(Cookies.get('balance')) : 0,
 	isAuthentication: !!Cookies.get('token'),
+	signUpped: false
 }
 
 interface ISignInSuccessData {
@@ -55,6 +57,18 @@ export const authSlice = createSlice({
 			state.isAuthentication = false
 			state.signInError = true
 		},
+		signUp: (state: IState, action: PayloadAction<{
+			email: string, password: string, confirmationPassword: string
+		}>) => {
+			state.loading = true
+		},
+		signUpSuccess: (state: IState, action: PayloadAction<ISignInSuccessData>) => {
+			state.loading = false
+			state.signUpped = true
+		},
+		signUpFail: (state: IState) => {
+			state.loading = false
+		},
 		profile: (state: IState) => {
 			state.loading = true
 			state.signInError = false
@@ -85,7 +99,6 @@ export const authSlice = createSlice({
 			state.user = null
 		},
 		updateBalance: (state: IState, action: PayloadAction<number>) => {
-			console.log('-----updateBalance', state.balance, action.payload, typeof state.balance, typeof action.payload)
 			state.balance = Number(state.balance) + Number(action.payload)
 			Cookies.set('balance', state.balance.toString())
 			Cookies.set('user', JSON.stringify({
@@ -100,6 +113,9 @@ export const {
 	signIn,
 	signInSuccess,
 	signInFail,
+	signUp,
+	signUpFail,
+	signUpSuccess,
 	profile,
 	profileSuccess,
 	profileFail,

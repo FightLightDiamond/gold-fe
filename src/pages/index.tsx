@@ -49,14 +49,11 @@ const Home = () => {
             return o.user_id === auth.user.id
           })
           if(reward) {
-            console.log("reward.balance * 2", reward, reward.balance * 2)
-
             toast(`Congratulations on winning and earning $${reward.balance}!`);
             dispatch({
               type: updateBalance.type,
               payload: reward.balance * 2
             })
-            console.log("reward", data);
           }
         });
       })

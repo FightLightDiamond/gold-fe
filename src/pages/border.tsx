@@ -6,7 +6,7 @@ const Border = () => {
             <div className={styles.body}>
                 <div className={styles.box}>
                     <span></span>
-                    <h2>RICH</h2>
+                    <h2>MR.K<small>Rich</small></h2>
                 </div>
             </div>
         </div>

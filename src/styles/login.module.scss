@@ -1,0 +1,93 @@
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 92vh;
+}
+
+.boxLogin {
+  position: absolute;
+  min-width: 320px;
+  min-height: 370px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.boxLogin:before {
+  content: '';
+  top: -50%;
+  left: -50%;
+  position: absolute;
+  min-width: 320px;
+  min-height: 370px;
+  background: linear-gradient(0deg, transparent, var(--bs-cyan), var(--bs-cyan));
+  transform-origin: bottom right;
+  animation: animateLogin 6s linear infinite;
+}
+
+.boxLogin:after {
+  content: '';
+  top: -50%;
+  left: -50%;
+  position: absolute;
+  min-width: 320px;
+  min-height: 370px;
+  background: linear-gradient(0deg, transparent, var(--bs-cyan), var(--bs-cyan));
+  transform-origin: bottom right;
+  animation: animateLogin 6s linear infinite;
+  animation-delay: -3s;
+}
+
+.boxRegister {
+  position: absolute;
+  min-width: 320px;
+  min-height: 450px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.boxRegister:before {
+  content: '';
+  top: -50%;
+  left: -50%;
+  position: absolute;
+  min-width: 320px;
+  min-height: 450px;
+  background: linear-gradient(0deg, transparent, var(--bs-cyan), var(--bs-cyan));
+  transform-origin: bottom right;
+  animation: animateLogin 6s linear infinite;
+}
+
+.boxRegister:after {
+  content: '';
+  top: -50%;
+  left: -50%;
+  position: absolute;
+  min-width: 320px;
+  min-height: 450px;
+  background: linear-gradient(0deg, transparent, var(--bs-cyan), var(--bs-cyan));
+  transform-origin: bottom right;
+  animation: animateLogin 6s linear infinite;
+  animation-delay: -3s;
+}
+
+@keyframes animateLogin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form {
+  margin: auto;
+  position: absolute;
+  inset: 8px;
+  border-radius: 8px;
+  background: #161623;
+  z-index: 10;
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+}

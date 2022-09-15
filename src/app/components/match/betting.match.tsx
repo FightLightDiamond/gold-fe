@@ -109,32 +109,32 @@ const BettingMatch = ({ id, items, start_time }: { id: number, items: any, start
                 <Form.Range color="dark" value={balance} min={0} max={auth.balance} onChange={(e) => setBalance(parseInt(e.target.value))} />
                 <Row>
                   <Col className='xs-2'>
-                    <MDBBtn block color="dark" type='button' outline={balance === auth.balance * 0.05 ? false : true}
+                    <MDBBtn block color="dark" type='button' outline={balance !== auth.balance * 0.05}
                       onClick={() => setBalance(auth.balance * 0.05)}
                     >
                       5%
                     </MDBBtn>
                   </Col>
                   <Col className='xs-2'>
-                    <MDBBtn block color="dark" type='button' outline={balance === auth.balance * 0.25 ? false : true}
+                    <MDBBtn block color="dark" type='button' outline={balance !== auth.balance * 0.25}
                       onClick={() => setBalance(auth.balance * 0.25)}>
                       25%
                     </MDBBtn>
                   </Col>
                   <Col className='xs-2'>
-                    <MDBBtn block color="dark" type='button' outline={balance === auth.balance * 0.5 ? false : true}
+                    <MDBBtn block color="dark" type='button' outline={balance !== auth.balance * 0.5}
                       onClick={() => setBalance(auth.balance * 0.5)}>
                       50%
                     </MDBBtn>
                   </Col>
                   <Col className='xs-2'>
-                    <MDBBtn block color="dark" type='button' outline={balance === auth.balance * 0.75 ? false : true}
+                    <MDBBtn block color="dark" type='button' outline={balance !== auth.balance * 0.75}
                       onClick={() => setBalance(auth.balance * 0.75)}>
                       75%
                     </MDBBtn>
                   </Col>
                   <Col className='xs-2'>
-                    <MDBBtn block color="dark" type='button' outline={balance === auth.balance ? false : true}
+                    <MDBBtn block color="dark" type='button' outline={balance !== auth.balance}
                       onClick={() => setBalance(auth.balance)}>
                       100%
                     </MDBBtn>
