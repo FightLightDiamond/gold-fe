@@ -17,6 +17,8 @@ hee.set(5, 'Valkyrie')
 hee.set(6, 'Poseidon')
 hee.set(7, 'Hera')
 hee.set(8, 'Chiron')
+hee.set(9, 'Sphinx')
+hee.set(10, 'Amon')
 
 const History = () => {
   /**
@@ -48,7 +50,7 @@ const History = () => {
                   <th scope='col'>#</th>
                   <th scope='col'>Winner</th>
                   <th scope='col'>Loser</th>
-                  <th scope='col'>No.Turn</th>
+                  {/*<th scope='col'>No.Turn</th>*/}
                   <th scope='col'>Time</th>
                 </tr>
               </MDBTableHead>
@@ -59,7 +61,7 @@ const History = () => {
                       <th scope='row'>{key + 1}</th>
                       <td>{hee.get(item.winner)}</td>
                       <td>{hee.get(item.loser)}</td>
-                      <td>{item.turn_number}</td>
+                      {/*<td>{item.turn_number}</td>*/}
                       <td>{convertDate(Number(item.start_time))}</td>
                     </tr>
                   })

@@ -13,6 +13,7 @@ const skills: any = {
   Phoenix: "if hp <= 60%,  hồi lại 40% HP bị mất, x2 def, +20% tỉ lệ crit",
   Fenrir: "+5% crit rate, +15% crit_dame mỗi lượt",
   Sphinx: "-(20 + 20% def) đối thủ mỗi lượt. Mỗi turn chẵn nếu HP < HP đối phương, +10% crit rate, ATK",
+  Amon: "+HP = 30% atk, +DEF 5%, +CRIT DMG 10% mỗi turn",
 }
 
 const HeroTurn = ({hero}: { hero: IMatchLog }) => {

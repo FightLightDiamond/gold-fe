@@ -44,20 +44,20 @@ const EloMatchCharts = () => {
           <MDBTableBody>
             {
               !loading && items?.items?.length > 0 && items?.items?.map((item: any, key: number) => {
-                return <tr>
-                  <td scope='row'>{key + 1}</td>
+                return <tr key={key}>
+                  <td>{key + 1}</td>
                   <td>{item.email}</td>
                   <td>{item.hero}</td>
                   {/*<td>{item.level}</td>*/}
                   <td>{item.elo}</td>
                   <td>
-                    <MDBBtn className='mx-2' color='secondary'>
-                      <MDBIcon onClick={() => dispatch({
-                        type:fightEloMatch.type,
-                        payload: {
-                          competitor: item.id
-                        }
-                      })} fas icon="skull-crossbones" />
+                    <MDBBtn  onClick={() => dispatch({
+                      type:fightEloMatch.type,
+                      payload: {
+                        competitor: item.id
+                      }
+                    })}  disabled={loading} className='mx-2' color='secondary'>
+                      <MDBIcon fas icon="skull-crossbones" />
                   </MDBBtn></td>
                 </tr>
               })

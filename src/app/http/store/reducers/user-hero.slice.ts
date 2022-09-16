@@ -30,6 +30,18 @@ export const heroSlice = createSlice({
 	name: 'hero',
 	initialState,
 	reducers: {
+		getMyHero: (state, action?: PayloadAction<string>) => {
+			state.charts.loading = true
+			state.charts.error = null
+		},
+		getMyHeroError: (state: IState, action: PayloadAction<string>) => {
+			state.charts.loading = false
+			state.charts.error = action.payload
+		},
+		getMyHeroSuccess: (state: IState, action: PayloadAction<any[]>) => {
+			state.charts.loading = false
+			state.charts.items = action.payload
+		},
 		getCharts: (state, action?: PayloadAction<string>) => {
 			state.charts.loading = true
 			state.charts.error = null
@@ -85,6 +97,9 @@ export const {
 	getCharts,
 	getChartsError,
 	getChartsSuccess,
+	getMyHero,
+	getMyHeroError,
+	getMyHeroSuccess,
 	selectHero,
 	selectHeroError,
 	selectHeroSuccess,

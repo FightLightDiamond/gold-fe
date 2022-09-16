@@ -3,6 +3,9 @@ import {
   getCharts,
   getChartsError,
   getChartsSuccess,
+  getMyHero,
+  getMyHeroError,
+  getMyHeroSuccess,
   selectHero,
   selectHeroError,
   selectHeroSuccess,
@@ -73,11 +76,27 @@ function* upLevelWorker(action: IAction<any>): any {
   }
 }
 
+function* getMyHeroWorker(action: IAction<any>): any {
+  const {body} = action.payload
+  const [response, error] = yield userHeroService.getMyHeroes(body)
+
+  if (error) {
+    yield put({type: getMyHeroError.type})
+  } else {
+    const {data} = response
+    const payload = data ?? response
+
+    console.log({response, error, payload})
+    yield put({type: getMyHeroSuccess.type, payload})
+  }
+}
+
 function* userHeroWatcher() {
   yield takeLeading(getCharts.type, getChartsWorker)
   yield takeLeading(selectHero.type, selectHeroWorker)
   yield takeLeading(upPointHero.type, upPointWorker)
   yield takeLeading(upLevelHero.type, upLevelWorker)
+  yield takeLeading(getMyHero.type, getMyHeroWorker)
 }
 
 export default userHeroWatcher

@@ -15,6 +15,8 @@ import History from "./pages/match/history";
 import Portfolio from "./pages/portfolio";
 import EloMatchCharts from "./pages/elo-match";
 import Register from "./pages/auth/register";
+import Distortion from "./pages/distortion";
+import Profile from "./pages/auth/profile";
 
 const App = () => {
   return (
@@ -35,7 +37,9 @@ const App = () => {
           <Route path="/room" element={<Room/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
           <Route path="/borer" element={<Border/>}/>
+          <Route path="/distortion" element={<Distortion/>}/>
           <Route path="/portfolio" element={<Portfolio/>}/>
+          <Route path="/profile" element={<Profile/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>

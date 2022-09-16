@@ -8,6 +8,19 @@ class UserHeroService extends AbstractService {
     return this.index(filter)
   }
 
+  /**
+   * Get My Heroes
+   */
+  async getMyHeroes(body: any) {
+    try {
+      const response = await Request.get(`${this.name}my-heroes/`, body);
+
+      return [response.data, null];
+    } catch (error) {
+      return [null, error];
+    }
+  }
+
   async selectHero(body: any) {
     return this.store(body)
   }
