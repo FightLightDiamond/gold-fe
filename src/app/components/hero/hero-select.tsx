@@ -55,7 +55,7 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
       <motion.div
                   key={hero.name}
                   animate={{
-                    scale: !hero.take_dmg ? [0.5, 0.8] : 0.8,
+                    scale: !hero.take_dmg ? [0.5, 0.7] : 0.7,
                     opacity: !hero.take_dmg ? [0.5, 1] : 1,
                   }}
                   transition={{
@@ -71,7 +71,6 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
           className="img-fluid"
         />
       </motion.div>
-      <p className="text-light text-center">Nội tại: {skills[hero.name]}</p>
     </div>
   </Tilt>
 }

@@ -3,6 +3,11 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 export interface IMatchState {
 	loading: boolean
 	error: string | null,
+	fight: {
+		match: any,
+		loading: boolean
+		error: string | null
+	}
 	histories: {
 		items: any,
 		loading: boolean
@@ -13,6 +18,11 @@ export interface IMatchState {
 const initialState: IMatchState = {
 	loading: false,
 	error: null,
+	fight: {
+		match: null,
+		loading: false,
+		error: null
+	},
 	histories: {
 		items: null,
 		loading: false,
@@ -25,15 +35,16 @@ export const matchSlice = createSlice({
 	initialState,
 	reducers: {
 		fightEloMatch: (state: IMatchState, action?: PayloadAction<string>) => {
-			state.loading = true
-			state.error = null
+			state.fight.loading = true
+			state.fight.error = null
 		},
 		fightEloMatchError: (state: IMatchState, action: PayloadAction<string>) => {
 			state.loading = false
-			state.error = action.payload
+			state.fight.error = action.payload
 		},
 		fightEloMatchSuccess: (state: IMatchState, action: PayloadAction<any[]>) => {
-			state.loading = false
+			state.fight.match = action.payload
+			state.fight.loading = false
 		},
 		historiesEloMatch: (state: IMatchState, action?: PayloadAction<string>) => {
 			state.histories.loading = true

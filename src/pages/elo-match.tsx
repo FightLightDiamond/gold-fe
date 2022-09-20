@@ -7,10 +7,13 @@ import {fightEloMatch} from "../app/http/store/reducers/elo-match.slice";
 import {Row,} from "react-bootstrap";
 import {
   MDBBtn,
-  MDBIcon,
+  MDBIcon, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalFooter, MDBModalHeader, MDBModalTitle,
   MDBTable,
   MDBTableBody, MDBTableHead,
 } from 'mdb-react-ui-kit';
+import {useEffect, useState} from "react";
+import FightingMatch from "../app/components/match/fighting.match";
+import Container from "react-bootstrap/Container";
 
 const EloMatchCharts = () => {
   /**
@@ -20,7 +23,21 @@ const EloMatchCharts = () => {
   const userHero = useSelector((state: any) => state.userHero);
   const {charts} = userHero;
   const {items, loading} = charts;
-  console.log("items", items)
+  const eloMatch = useSelector((state: any) => state.eloMatch);
+  const {fight} = eloMatch;
+  const {match} = fight;
+
+  useEffect(() => {
+    if(match) {
+      setFullscreenEloMatch(true)
+    }
+  }, [match])
+
+  /**
+   * Modal
+   */
+  const [fullscreenXlModal, setFullscreenEloMatch] = useState(false);
+  const toggleShow = () => setFullscreenEloMatch(!fullscreenXlModal);
 
   useEffectOnce(() => {
     dispatch({type: getCharts.type})
@@ -65,6 +82,30 @@ const EloMatchCharts = () => {
           </MDBTableBody>
         </MDBTable>
       </Row>
+
+      <MDBModal tabIndex='-1' show={fullscreenXlModal} setShow={setFullscreenEloMatch}>
+        <MDBModalDialog size='fullscreen'>
+          <MDBModalContent className="war_back_ground">
+            <MDBModalHeader>
+              <MDBModalTitle className="text-center text-warning">
+                Battle of the Kings. Who will unify them all, glorious emperor?</MDBModalTitle>
+              <MDBBtn
+                type='button'
+                className='btn-close'
+                color='warning'
+                onClick={toggleShow}
+              ></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <Container>
+                {
+                  !fight.loading && match?.turns.length > 0 && <FightingMatch start_time={Number(Date.now()) + 60* 2*1000 } items={match.turns} />
+                }
+              </Container>
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
     </div>
   )
 }

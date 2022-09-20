@@ -91,7 +91,7 @@ const Room = () => {
       <div>
         {
           item.status === BETTING_STATUS ? <BettingMatch id={id} start_time={parseInt(start_time) + 60*1000} items={hero_info} />
-          : item.status === FIGHTING_STATUS ? <FightingMatch id={id} start_time={parseInt(start_time) + 60* 3*1000 } items={turns} />  : "END_STATUS"
+          : item.status === FIGHTING_STATUS ? <FightingMatch start_time={parseInt(start_time) + 60* 3*1000 } items={turns} />  : "END_STATUS"
         }
       </div>
     </div>

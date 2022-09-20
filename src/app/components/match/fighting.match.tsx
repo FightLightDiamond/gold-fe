@@ -6,7 +6,7 @@ import {IMatchLog} from "../../interfaces/match-log.interface";
 import HeroTurn from "../hero/hero-select";
 import Countdown from "react-countdown";
 
-const FightingMatch = ({id, items, start_time}: { id: number, items: any, start_time: number }) => {
+const FightingMatch = ({items, start_time}: { items: any, start_time: number }) => {
   /**
    * State
    */
@@ -57,7 +57,7 @@ const FightingMatch = ({id, items, start_time}: { id: number, items: any, start_
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Row className="text-light">
         <Col xs="6">
           FIGHT TIME: <Countdown date={start_time}/>
