@@ -1,11 +1,12 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import styles from "../../../styles/fighting-match.module.css";
 import { Col, Row } from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
 import { IMatchLog } from "../../interfaces/match-log.interface";
 import HeroTurn from "../hero/hero-select";
 import Countdown from "react-countdown";
-import { MDBBtn } from "mdb-react-ui-kit";
+import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
+import { useEffectOnce } from "../../hooks/useEffectOnce";
 
 const FightingMatch = ({ items, start_time }: { items: any, start_time: number }) => {
   /**
@@ -13,16 +14,18 @@ const FightingMatch = ({ items, start_time }: { items: any, start_time: number }
    */
   const [home, setHome] = useState<IMatchLog>();
   const [away, setAway] = useState<IMatchLog>();
-  const [speed, setSpeed] = useState<number>(1);
+  const [speedInterval, setSpeedInterval] = useState<number>(1);
+  const [indexInterval, setIndexInterval] = useState<number>(-1);
+  const [inter, setInter] = useState<number[]>([]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     if (items.length > 0) {
-      setMatch();
+      setMatch(-1, 1);
     }
-  }, [items]);
+  });
 
-  const setMatch = () => {
-    let index = -1;
+  const setMatch = (store = -1, speed = 1) => {
+    let index = store;
     const idHero = items[0].id
 
     const id = setInterval(() => {
@@ -40,7 +43,6 @@ const FightingMatch = ({ items, start_time }: { items: any, start_time: number }
         setAway(items[index]);
       }
 
-
       //Đồng thời thể hiện bên chịu sát thương
       ++index
       if (items.length <= index) {
@@ -55,8 +57,17 @@ const FightingMatch = ({ items, start_time }: { items: any, start_time: number }
         setAway(items[index]);
       }
 
+      setIndexInterval(index);
+
     }, 4000 / speed);
+
+    setInter(inter.concat(Number(id)));
   };
+
+  const setSpeedFunc = (speed: number) => {
+    inter.map((e) => clearInterval(e));
+    setMatch(indexInterval, speed); setSpeedInterval(speed)
+  }
 
   return (
     <div className={styles.container}>
@@ -77,23 +88,32 @@ const FightingMatch = ({ items, start_time }: { items: any, start_time: number }
           {away ? <HeroTurn hero={away} /> : <Spinner variant="light" animation="border" />}
         </Col>
       </Row>
-      <Row className="text-light">
-        <Col xs="6">
-          <MDBBtn block color="dark" type='button' outline={speed === 2}
-            onClick={() => setSpeed(speed === 2 ? 1 : 2)}>
+      {indexInterval > 0 && (<Row className="text-light">
+        <Col xs="6" className="d-flex justify-content-start">
+          {indexInterval === items.length - 1 && (
+
+            <MDBBtn floating color="dark"
+              onClick={() => setMatch(-1, speedInterval)}>
+              <MDBIcon fas icon="redo-alt" />
+            </MDBBtn>
+          )}
+        </Col>
+        <Col xs="6" className="d-flex justify-content-end">
+          <MDBBtn className='mx-2' floating color="dark" type='button' outline={speedInterval === 2}
+            onClick={() => setSpeedFunc(2)}>
             x2
           </MDBBtn>
-          <MDBBtn block color="dark" type='button' outline={speed === 4}
-            onClick={() => setSpeed(speed === 4 ? 1 : 4)}>
+          <MDBBtn floating color="dark" type='button' outline={speedInterval === 4}
+            onClick={() => setSpeedFunc(4)}>
             x4
           </MDBBtn>
-          <MDBBtn block color="dark" type='button' outline={speed === 8}
-            onClick={() => setSpeed(speed === 8 ? 1 : 8)}>
+          <MDBBtn className='ms-2' floating color="dark" type='button' outline={speedInterval === 8}
+            onClick={() => setSpeedFunc(8)}>
             x8
           </MDBBtn>
         </Col>
-      </Row>
-    </div>
+      </Row>)}
+    </div >
   );
 };
 
