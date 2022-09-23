@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styles from "../../../styles/fighting-match.module.css";
 import { Col, Row } from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
@@ -8,7 +8,7 @@ import Countdown from "react-countdown";
 import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import { useEffectOnce } from "../../hooks/useEffectOnce";
 
-const FightingMatch = ({ items, start_time }: { items: any, start_time: number }) => {
+const FightingMatch = ({ items, start_time, type = "normal" }: { items: any, start_time: number, type?: string }) => {
   /**
    * State
    */
@@ -19,10 +19,16 @@ const FightingMatch = ({ items, start_time }: { items: any, start_time: number }
   const [inter, setInter] = useState<number[]>([]);
 
   useEffectOnce(() => {
-    if (items.length > 0) {
+    if (items.length > 0 && type === 'elo') {
       setMatch(-1, 1);
     }
   });
+
+  useEffect(() => {
+    if (items.length > 0 && type !== 'elo') {
+      setMatch(-1, 1);
+    }
+  }, [items])
 
   const setMatch = (store = -1, speed = 1) => {
     let index = store;
