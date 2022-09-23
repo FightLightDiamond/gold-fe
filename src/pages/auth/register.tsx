@@ -4,10 +4,9 @@ import ThemeProvider from 'react-bootstrap/ThemeProvider'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import { signUp } from "../../app/http/store/reducers/auth.slice";
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import {SubmitHandler, useForm} from "react-hook-form";
 import styles from '../../styles/login.module.scss'
-import {NavigateFunction} from "react-router/lib/hooks";
 
 type TInputs = {
   email: string,
