@@ -16,13 +16,13 @@ const Heroes = () => {
   const {heroes} = hero;
   const {items, loading} = heroes
   const [activeId, setActiveId] = useState(Array);
-  const onDetail = (index: any) => {
-    if (activeId.includes(index)) {
-      setActiveId(activeId => activeId.filter(e => e !== index))
-    } else {
-      setActiveId(activeId => [...activeId,index])
-    }
-  }
+  // const onDetail = (index: any) => {
+  //   if (activeId.includes(index)) {
+  //     setActiveId(activeId => activeId.filter(e => e !== index))
+  //   } else {
+  //     setActiveId(activeId => [...activeId,index])
+  //   }
+  // }
 
   useEffectOnce(() => {
     dispatch({type: getHeroes.type})

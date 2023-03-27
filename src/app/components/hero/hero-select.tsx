@@ -71,6 +71,7 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
           className="img-fluid"
         />
       </motion.div>
+      <p className="text-light text-center">Nội tại: {skills[hero.name]}</p>
     </div>
   </Tilt>
 }

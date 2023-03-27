@@ -20,7 +20,7 @@ export const heroSlice = createSlice({
 	name: 'hero',
 	initialState,
 	reducers: {
-		getHeroes: (state, action?: PayloadAction<string>) => {
+		getHeroes: (state: IState, action?: PayloadAction<string>) => {
 			state.heroes.loading = true
 			state.heroes.error = null
 		},

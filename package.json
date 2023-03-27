@@ -22,6 +22,7 @@
     "font-awesome": "^4.7.0",
     "framer-motion": "^6.5.1",
     "gsap": "^3.11.0",
+    "i18next": "^22.4.13",
     "ionicons": "^6.0.2",
     "js-cookie": "^3.0.1",
     "js-tokens": "^8.0.0",
