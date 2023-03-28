@@ -17,6 +17,7 @@ import EloMatchCharts from "./pages/elo-match";
 import Register from "./pages/auth/register";
 import Distortion from "./pages/distortion";
 import Profile from "./pages/auth/profile";
+import TFT from "./pages/tft";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/distortion" element={<Distortion/>}/>
           <Route path="/portfolio" element={<Portfolio/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/tft" element={<TFT/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>

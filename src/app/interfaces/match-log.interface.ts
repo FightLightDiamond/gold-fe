@@ -33,6 +33,7 @@ export interface IMatchLog extends IHero {
   current_acc?: number;
   // L3
   current_cc?: number;
+  is_atk: boolean;
   attack(away: IMatchLog): IMatchLog[];
   setHome(home: IHero): IMatchLog;
   setCurrent(): IMatchLog;

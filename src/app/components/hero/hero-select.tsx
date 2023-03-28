@@ -16,6 +16,11 @@ const skills: any = {
   Amon: "+HP = 30% atk, +DEF 5%, +CRIT DMG 10% mỗi turn",
 }
 
+function viewCurrent(c: number | undefined) {
+  if(c === undefined) return 0;
+  return c > 0 ? c : 0;
+}
+
 const HeroTurn = ({hero}: { hero: IMatchLog }) => {
   return <Tilt
     options={{
@@ -25,11 +30,11 @@ const HeroTurn = ({hero}: { hero: IMatchLog }) => {
     }}
   >
     <div>
-      <ProgressBar label={hero.current_hp} variant="danger" now={(hero.current_hp)} max={hero.hp}/>
-      <ProgressBar label={hero.current_atk} variant="warning" now={(hero.current_atk)} max={hero.atk * 3}/>
-      <ProgressBar label={hero.current_def} variant="info" now={(hero.current_def)} max={hero.def * 3}/>
-      <ProgressBar label={hero.current_crit_rate} variant="success" now={(hero.current_crit_rate)} max={100}/>
-      <ProgressBar label={hero.current_crit_dmg} now={(hero.current_crit_dmg)} max={400}/>
+      <ProgressBar label={viewCurrent(hero.current_hp)} variant="danger" now={viewCurrent(hero.current_hp)} max={hero.hp}/>
+      <ProgressBar label={viewCurrent(hero.current_atk)} variant="warning" now={viewCurrent(hero.current_atk)} max={hero.atk * 3}/>
+      <ProgressBar label={viewCurrent(hero.current_def)} variant="info" now={viewCurrent(hero.current_def)} max={hero.def * 3}/>
+      <ProgressBar label={viewCurrent(hero.current_crit_rate)} variant="success" now={viewCurrent(hero.current_crit_rate)} max={100}/>
+      <ProgressBar label={viewCurrent(hero.current_crit_dmg)} now={viewCurrent(hero.current_crit_dmg)} max={400}/>
       <div>
         <motion.h1
           animate={{
