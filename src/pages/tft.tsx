@@ -5,8 +5,10 @@ import {
     MDBCardTitle,
     MDBCardText,
     MDBCardImage,
-    MDBBtn, MDBContainer, MDBRow, MDBCol, MDBIcon
+    MDBBtn, MDBContainer, MDBRow, MDBCol, MDBIcon, MDBCardHeader
 } from 'mdb-react-ui-kit';
+import {a} from "@react-spring/web";
+import * as _ from "lodash";
 
 interface cardBought {
     id: number
@@ -56,26 +58,39 @@ const TFT = () => {
     let [hp, setHp] = useState(2000)
     let [gold, setGold] = useState(10)
     let [lv, setLv] = useState(1)
-    const [list, setList] = useState<any>([])
+    const [listSelect, setListSelect] = useState<any>([])
+    const [cards, setCards] = useState<any>({})
 
-    let [cards, setCards] = useState(new Map())
+
+    useEffect(() => {
+        console.log(cards)
+    }, [cards])
+
+    useEffect(() => {
+        console.log(lv)
+    }, [lv])
+
+    useEffect(() => {
+        console.log(round)
+    }, [round])
 
     const add = (id: number) => {
-        let amount = cards.get(id);
+        let amount = cards[id];
         if (amount) {
-            cards.set(id, ++amount)
+            cards[id] = ++amount
         } else {
             // Nếu không có
-            cards.set(id, 1)
+            cards[id] = 1
         }
 
         setCards(cards)
     }
 
+
     const remove = (id: number, qtySub: number) => {
-        let qty = cards.get(id);
+        let qty = cards[id];
         if (qty != undefined && qtySub <= qty) {
-            cards.set(id, qty - qtySub)
+            cards[id] = qty - qtySub
             setCards(cards)
 
             gold += qtySub
@@ -124,14 +139,19 @@ const TFT = () => {
         if (gold === 0) return;
         --gold
         setGold(gold)
-        getRandomList(3)
+        getRandomListSelect(3)
     }
 
-    const buy = (cardId: number) => {
+    const buy = (cardId: number, index: number) => {
         if (gold === 0) return;
-        add(cardId);
+
         --gold
         setGold(gold)
+        add(cardId);
+
+        delete listSelect[index]
+
+        setListSelect(listSelect)
     }
 
     const sell = (cardId: number, qty: number = 1) => {
@@ -160,14 +180,13 @@ const TFT = () => {
         return arr[randomIndex];
     }
 
-    const getRandomList = (qty: number = 6) => {
-        const list = [];
+    const getRandomListSelect = (qty: number = 6) => {
+        const listSelect = [];
         for (let i = 0; i < qty; i++) {
-            list.push(getRandomItem(items))
+            listSelect.push(getRandomItem(items))
         }
-        console.log(list)
-        setList(list)
-        return list;
+        setListSelect(listSelect)
+        return listSelect;
     }
 
 
@@ -180,15 +199,15 @@ const TFT = () => {
 
             <h2>CARD</h2>
             <MDBRow className='mb-3'>
-                {list.map((item: any) =>
-                    <MDBCol size='4' onClick={() => buy(item.id)}>
-                        <MDBCard alignment='center'>
-                            <MDBCardImage src={`/img/without/${item?.id}.png`} position='top'
+                {listSelect.map((item: any, key: number) =>
+                    <MDBCol key={key} size='4' onClick={() => buy(item.id, key)}>
+                        <MDBCard alignment='center' background='dark' className='text-white'>
+                            <MDBCardImage overlay src={`/img/without/${item?.id}.png`} position='top'
                                           alt='...'/>
                             <MDBCardBody>
-                                <MDBCardTitle>{item.id}</MDBCardTitle>
+                                {/*<MDBCardTitle>{item.id}</MDBCardTitle>*/}
                                 <MDBCardText>
-                                    {item.name}
+                                    + 10% ATK
                                 </MDBCardText>
                                 {/*<MDBBtn >BUY</MDBBtn>*/}
                             </MDBCardBody>
@@ -210,10 +229,11 @@ const TFT = () => {
             </MDBRow>
 
             <MDBRow className='mb-3'>
-                {itemsBought.map((item: any) =>
-                    <MDBCol size='1'>
-                        <MDBCard onClick={() => sell(1)}>
-                            <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top'
+                {itemsBought.map((item: any, key: number) =>
+                    <MDBCol key={key} size='3' className='mb-3'>
+                        <MDBCard alignment='center' onClick={() => sell(1)}>
+                            <MDBCardHeader>{key + 1}</MDBCardHeader>
+                            <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp'
                                           alt='...'/>
                         </MDBCard>
                     </MDBCol>

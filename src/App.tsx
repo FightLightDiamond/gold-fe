@@ -18,6 +18,7 @@ import Register from "./pages/auth/register";
 import Distortion from "./pages/distortion";
 import Profile from "./pages/auth/profile";
 import TFT from "./pages/tft";
+import DG from "./pages/dg";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/portfolio" element={<Portfolio/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/tft" element={<TFT/>}/>
+          <Route path="/dg" element={<DG/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>
