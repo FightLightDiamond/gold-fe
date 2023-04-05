@@ -1,4 +1,4 @@
-import {memo, useEffect, useState} from "react";
+import {memo} from "react";
 import Incorporate from "../components/Incorporate";
 
 const DG = () => {

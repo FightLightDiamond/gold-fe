@@ -1,20 +1,15 @@
-import {WS} from "../app/http/ws";
 import {useEffectOnce} from "../app/hooks/useEffectOnce";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentMatch, getCurrentMatchSuccess, IMatchState} from "../app/http/store/reducers/match.slice";
+import {getCurrentMatch, IMatchState} from "../app/http/store/reducers/match.slice";
 import {RootState} from "../app/http/store";
 import {BETTING_STATUS, FIGHTING_STATUS} from "../constants/bet-status.constant"
 import FightingMatch from "../app/components/match/fighting.match";
 import {memo, useEffect, useState} from "react";
 import BettingMatch from "../app/components/match/betting.match";
-import * as __ from 'lodash'
-import { updateBalance } from "../app/http/store/reducers/auth.slice";
-import {toast} from "react-toastify";
 
 const Home = () => {
   const dispatch = useDispatch();
   const match: IMatchState = useSelector((state: RootState) => state.match);
-  const auth = useSelector((state: RootState) => state.auth);
   const {currentMatch} = match
   const {item} = currentMatch
   const {start_time, id} = item
@@ -23,43 +18,6 @@ const Home = () => {
     dispatch({
       type: getCurrentMatch.type
     })
-
-    const getWS = async () => {
-      const socket = await WS.getSocket()
-      socket.on("connect", () => {
-        socket.emit("joinRoom", "match");
-        socket.emit("joinRoom", "all")
-
-        socket.on("betting", (data: any) => {
-          dispatch({
-            type: getCurrentMatchSuccess.type,
-            payload: data
-          })
-          toast(`The match is betting`, );
-        });
-        socket.on("matching", (data: any) => {
-          toast(`The match is fighting`);
-          dispatch({
-            type: getCurrentMatchSuccess.type,
-            payload: data
-          })
-        });
-        socket.on("reward", (data: any) => {
-          const reward: any = __.find(data, (o) => {
-            return o.user_id === auth.user.id
-          })
-          if(reward) {
-            toast(`Congratulations on winning and earning $${reward.balance}!`);
-            dispatch({
-              type: updateBalance.type,
-              payload: reward.balance * 2
-            })
-          }
-        });
-      })
-    }
-
-    void getWS();
   });
 
   const [hero_info, setHeroInfo] = useState([])

@@ -19,8 +19,59 @@ import Distortion from "./pages/distortion";
 import Profile from "./pages/auth/profile";
 import TFT from "./pages/tft";
 import DG from "./pages/dg";
+import {useEffectOnce} from "./app/hooks/useEffectOnce";
+import {WS} from "./app/http/ws";
+import {getCurrentMatchSuccess} from "./app/http/store/reducers/match.slice";
+import {toast} from "react-toastify";
+import * as __ from "lodash";
+import {updateBalance} from "./app/http/store/reducers/auth.slice";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./app/http/store";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
+
+  useEffectOnce(() => {
+    const getWS = async () => {
+      const socket = await WS.getSocket()
+
+      socket.on("connect", () => {
+        socket.emit("joinRoom", "match");
+
+        socket.on("betting", (data: any) => {
+          dispatch({
+            type: getCurrentMatchSuccess.type,
+            payload: data
+          })
+          toast(`The match is betting`, );
+        });
+
+        socket.on("matching", (data: any) => {
+          toast(`The match is fighting`);
+          dispatch({
+            type: getCurrentMatchSuccess.type,
+            payload: data
+          })
+        });
+
+        socket.on("reward", (data: any) => {
+          const reward: any = __.find(data, (o) => {
+            return o.user_id === auth.user.id
+          })
+
+          if(reward) {
+            toast(`Congratulations on winning and earning $${reward.balance}!`);
+            dispatch({
+              type: updateBalance.type,
+              payload: reward.balance * 2
+            })
+          }
+        });
+      })
+    }
+    void getWS();
+  })
   return (
     <Layout>
       <BrowserRouter>
