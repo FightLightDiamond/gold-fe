@@ -7,7 +7,6 @@ import Heroes from "./pages/heroes";
 import Sprite from "./pages/sprite";
 import Border from "./pages/border";
 import Login from "./pages/auth/login";
-import Room from "./pages/room";
 import DownClock from "./pages/down-clock";
 import Charts from './pages/charts';
 import './i18n/config';
@@ -87,7 +86,6 @@ const App = () => {
           <Route path="/sprite" element={<Sprite/>}/>
           <Route path="/border" element={<Border/>}/>
           <Route path="/border" element={<Border/>}/>
-          <Route path="/room" element={<Room/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
           <Route path="/borer" element={<Border/>}/>
           <Route path="/distortion" element={<Distortion/>}/>

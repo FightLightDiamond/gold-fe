@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {call} from "ionicons/icons";
 
 export interface IBetState {
 	bet: {
