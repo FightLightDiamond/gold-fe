@@ -35,8 +35,18 @@ const App = () => {
     const getWS = async () => {
       const socket = await WS.getSocket()
 
+      socket.addEventListener("open", () => {
+        // send a message to the server
+        console.log('Socket open')
+      });
+      socket.addEventListener("message", () => {
+        // send a message to the server
+        console.log('Socket open')
+      });
+
       socket.on("connect", () => {
-        socket.emit("joinRoom", "match");
+        console.log('Connect')
+        // socket.emit("joinRoom", "match");
 
         socket.on("betting", (data: any) => {
           dispatch({

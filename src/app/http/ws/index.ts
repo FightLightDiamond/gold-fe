@@ -20,7 +20,7 @@ export class WS {
      * Get Socket
      */
     static async getSocket() {
-        if (status) {
+        if (this.status) {
             await this.w4()
             await this.getSocket()
             console.log('W4')
@@ -62,33 +62,3 @@ export class WS {
         });
     }
 }
-
-
-// const user = ""
-
-// const socket = io("http://localhost:3000", {
-//   query: { user },
-//   transportOptions: {
-//     polling: {
-//       extraHeaders: {
-//         Authorization: `${user}`
-//       }
-//     }
-//   }
-// });
-
-// const chatSocket = io("http://localhost:3001/chat", {
-//   path: '/websockets',
-//   query: { user },
-//   // extraHeaders: {
-//   //   Authorization: `${user}`
-//   // },
-//   transportOptions: {
-//     polling: {
-//       extraHeaders: {
-//         Authorization: `${user}`
-//       }
-//     }
-//   }
-//   // transports: ['polling', 'websocket']
-// });

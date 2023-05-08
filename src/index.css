@@ -108,3 +108,32 @@ body {
   clip-path: circle(20% at 10% 50%);
   z-index: -1;
 }
+
+.cursor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*color: white;*/
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: royalblue;
+  transform: translate(-50%, -50%);
+  /*background: url('../public/img/effect/BlueGlowing.png');*/
+  /*background: url('../public/img/effect/BlueLensFlare.png');*/
+  /*background: url('../public/img/effect/blue_light.png');*/
+  /*background: url('../public/img/effect/ninja_slash.png');*/
+  /*background-size: cover;*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center center;*/
+  text-align: center;
+  cursor: none;
+}
+
+.element {
+  /*background-color: black;*/
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
