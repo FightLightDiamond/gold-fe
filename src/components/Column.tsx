@@ -22,12 +22,15 @@ const TaskList = styled.div`
   min-height: 100px;
 `
 
-const Column = ({column, tasks}: any) => {
+const Column = ({column, tasks, isDropDisabled}: any) => {
     return (
         <Container>
             <Title>{column.title}</Title>
             {/*//Droppable //for // Draggable*/}
-            <Droppable droppableId={column.id}>
+            <Droppable
+                droppableId={column.id}
+                isDropDisabled={isDropDisabled}
+            >
                 {(provided, snapshot) => (
                     <TaskList
                         ref={provided.innerRef}

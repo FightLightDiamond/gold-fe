@@ -20,8 +20,14 @@ const Handle = styled.div`
 `;
 
 const Task = ({task, index}: any) => {
+    const isDragDisabled = task.id === 'task-1';
+
     return <>
-        <Draggable draggableId={task.id} index={index}>
+        <Draggable
+            draggableId={task.id}
+            index={index}
+            isDragDisabled={isDragDisabled}
+        >
             {(provided, snapshot) => (
                 // snapshot - status
                 <Container

@@ -39,12 +39,20 @@ export default function Bdg2() {
     const [tasks, setTasks] = useState(initialData.tasks)
     const [columns, setColumns] = useState<any>(initialData.columns)
     const [columnOrder, setColumnOrder] = useState(initialData.columnOrder)
+    const [homeIndex, setHomeIndex] = useState<number| null>(null)
+
+
+    const onDragStart = (home: any) => {
+        const homeIndex = columnOrder.indexOf(home.source.droppableId);
+        setHomeIndex(homeIndex)
+    };
 
     /**
      * Update data
      * @param result
      */
     const onDragEnd = (result: any) => {
+        setHomeIndex(null)
         const { destination, source, draggableId } = result;
 
         if (!destination) {
@@ -58,16 +66,16 @@ export default function Bdg2() {
             return;
         }
 
-        const start = columns[source.droppableId];
-        const finish = columns[destination.droppableId];
+        const home = columns[source.droppableId];
+        const foreign = columns[destination.droppableId];
 
-        if (start === finish) {
-            const newTaskIds = Array.from(start.taskIds);
+        if (home === foreign) {
+            const newTaskIds = Array.from(home.taskIds);
             newTaskIds.splice(source.index, 1);
             newTaskIds.splice(destination.index, 0, draggableId);
 
             const newColumn = {
-                ...start,
+                ...home,
                 taskIds: newTaskIds,
             };
 
@@ -80,38 +88,47 @@ export default function Bdg2() {
         }
 
         // Moving from one list to another
-        const startTaskIds = Array.from(start.taskIds);
-        startTaskIds.splice(source.index, 1);
-        const newStart = {
-            ...start,
-            taskIds: startTaskIds,
+        const homeTaskIds = Array.from(home.taskIds);
+        homeTaskIds.splice(source.index, 1);
+        const newHome = {
+            ...home,
+            taskIds: homeTaskIds,
         };
 
-        const finishTaskIds = Array.from(finish.taskIds);
-        finishTaskIds.splice(destination.index, 0, draggableId);
+        const foreignTaskIds = Array.from(foreign.taskIds);
+        foreignTaskIds.splice(destination.index, 0, draggableId);
         const newFinish = {
-            ...finish,
-            taskIds: finishTaskIds,
+            ...foreign,
+            taskIds: foreignTaskIds,
         };
 
         setColumns({
             ...columns,
-            [newStart.id]: newStart,
+            [newHome.id]: newHome,
             [newFinish.id]: newFinish,
         })
     };
 
     return <>
         <DragDropContext
+            onDragStart={onDragStart}
             onDragEnd={onDragEnd}
         >
             <Container>
                 {
-                    columnOrder.map((columnId: string) => {
+                    columnOrder.map((columnId: string, index: number) => {
                             const column = columns[columnId];
                             const tasksColumn = column.taskIds.map((taskId: string) => tasks[taskId]);
+                        // Khóa ô có index thảo mãn điều kiện
+                            // @ts-ignore
+                        const isDropDisabled = index < homeIndex;
 
-                            return <Column key={column.id} column={column} tasks={tasksColumn}/>;
+                            return <Column
+                                key={column.id}
+                                column={column}
+                                tasks={tasksColumn}
+                                isDropDisabled={isDropDisabled}
+                            />;
                         }
                     )
                 }
