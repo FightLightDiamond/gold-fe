@@ -137,3 +137,17 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+
+/*.ca {*/
+/*  background: red !important;*/
+/*}*/
+/*.cb {*/
+/*  background: blue !important;*/
+/*}*/
+
+[data-dragging="true"] {
+  background: green
+}
+[data-draggingover="true"] {
+  background: rosybrown;
+}

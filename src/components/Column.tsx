@@ -21,8 +21,12 @@ const Column = ({column, tasks}: any) => {
             <Title>{column.title}</Title>
             {/*//Droppable //for // Draggable*/}
             <Droppable droppableId={column.id}>
-                {provided => (
-                    <TaskList ref={provided.innerRef} {...provided.droppableProps}>
+                {(provided, snapshot) => (
+                    <TaskList
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        data-draggingover={snapshot.isDraggingOver}
+                    >
                         {
                             tasks.map(
                                 // key, index
