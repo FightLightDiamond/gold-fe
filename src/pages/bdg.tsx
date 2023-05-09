@@ -1,5 +1,7 @@
 import Column from "../components/Column";
 import {DragDropContext} from "react-beautiful-dnd";
+import {use} from "i18next";
+import {useState} from "react";
 
 const initialData: any = {
     tasks: {
@@ -19,18 +21,52 @@ const initialData: any = {
     columnOrder: ['column-1']
 }
 export default function Bdg() {
+    const [tasks, setTasks] = useState(initialData.tasks)
+    const [columns, setColumns] = useState<any>(initialData.columns)
+    const [columnOrder, setColumnOrder] = useState(initialData.columnOrder)
+
+    /**
+     * Update data
+     * @param result
+     */
     const onDragEnd = (result: any) => {
-        // TODO: reorder our column
+        const { destination, source, draggableId } = result;
+
+        if (!destination) {
+            return;
+        }
+
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+
+        const column = columns[source.droppableId];
+        const newTaskIds = Array.from(column.taskIds);
+        newTaskIds.splice(source.index, 1);
+        newTaskIds.splice(destination.index, 0, draggableId);
+
+        const newColumn = {
+            ...column,
+            taskIds: newTaskIds,
+        };
+
+        setColumns({
+            ...columns,
+            [newColumn.id]: newColumn,
+        })
     };
 
     return <>
         <DragDropContext onDragEnd={onDragEnd}>
             {
-                initialData.columnOrder.map((columnId: string) => {
-                        const column = initialData.columns[columnId];
-                        const tasks = column.taskIds.map((taskId: string) => initialData.tasks[taskId]);
+                columnOrder.map((columnId: string) => {
+                        const column = columns[columnId];
+                        const tasksColumn = column.taskIds.map((taskId: string) => tasks[taskId]);
 
-                        return <Column key={column.id} column={column} tasks={tasks}/>;
+                        return <Column key={column.id} column={column} tasks={tasksColumn}/>;
                     }
                 )
             }
