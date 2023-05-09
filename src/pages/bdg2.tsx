@@ -1,7 +1,8 @@
 import Column from "../components/Column";
 import {DragDropContext} from "react-beautiful-dnd";
-import {useState} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
+import Column2 from "../components/Column2";
 
 const initialData: any = {
     tasks: {
@@ -34,6 +35,14 @@ const initialData: any = {
 const Container = styled.div`
   display: flex;
 `;
+
+class InnerList extends React.PureComponent {
+    render() {
+        const { column, taskMap, index }: any = this.props;
+        const tasks = column.taskIds.map((taskId: number) => taskMap[taskId]);
+        return <Column column={column} tasks={tasks} index={index} />;
+    }
+}
 
 export default function Bdg2() {
     const [tasks, setTasks] = useState(initialData.tasks)
@@ -123,12 +132,19 @@ export default function Bdg2() {
                             // @ts-ignore
                         const isDropDisabled = index < homeIndex;
 
-                            return <Column
-                                key={column.id}
-                                column={column}
-                                tasks={tasksColumn}
-                                isDropDisabled={isDropDisabled}
-                            />;
+                            // return <Column2
+                            //     key={column.id}
+                            //     column={column}
+                            //     tasks={tasksColumn}
+                            //     isDropDisabled={isDropDisabled}
+                            // />;
+
+                        return <InnerList
+                            key={column.id}
+                            column={column}
+                            taskMap={tasks}
+                            index={index}
+                        />
                         }
                     )
                 }
