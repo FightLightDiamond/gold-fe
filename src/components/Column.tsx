@@ -7,6 +7,10 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   border-radius: 2px;
+
+  width: 220px;
+  display: flex;
+  flex-direction: column;
 `
 const Title = styled.h3`
   padding: 8px;
@@ -14,6 +18,8 @@ const Title = styled.h3`
 const TaskList = styled.div`
   padding: 8px;
   transition: background-color 0.2s ease;
+  flex-grow: 1;
+  min-height: 100px;
 `
 
 const Column = ({column, tasks}: any) => {
@@ -31,7 +37,8 @@ const Column = ({column, tasks}: any) => {
                         {
                             tasks.map(
                                 // key, index
-                                (task: any, index: number) => <Task key={task.id} task={task} index={index} />
+                                (task: any, index: number) =>
+                                    <Task key={task.id} task={task} index={index}/>
                             )
                         }
                         {provided.placeholder}

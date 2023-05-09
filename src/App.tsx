@@ -28,6 +28,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./app/http/store";
 import Flag from "./pages/flag";
 import Bdg from "./pages/bdg";
+import Bdg2 from "./pages/bdg2";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -107,6 +108,7 @@ const App = () => {
           <Route path="/dg" element={<DG/>}/>
           <Route path="/f" element={<Flag/>}/>
           <Route path="/bdg" element={<Bdg/>}/>
+          <Route path="/bdg2" element={<Bdg2/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>
