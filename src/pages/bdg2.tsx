@@ -15,7 +15,7 @@ const initialData: any = {
         'column-1': {
             id: 'column-1',
             title: 'to do',
-            taskIds: ['task-1', 'task-2']
+            taskIds: ['task-1', 'task-2', 'task-3', 'task-4']
         },
         'column-2': {
             id: 'column-2',

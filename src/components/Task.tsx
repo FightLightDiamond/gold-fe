@@ -3,12 +3,25 @@ import { Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
     border: 1px solid lightgrey;
-    border-radius: 2px;
+    //border-radius: 2px;
+  border-radius: 50%;
     padding: 8px;
     margin-bottom: 8px
     [data-dragging="true"] {
     background: green
+    };
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &:focus {
+    outline: none;
+    border-color: red;
     }
+  
 `
 
 const Handle = styled.div`
@@ -20,13 +33,13 @@ const Handle = styled.div`
 `;
 
 const Task = ({task, index}: any) => {
-    const isDragDisabled = task.id === 'task-1';
+    // const isDragDisabled = task.id === 'task-1';
 
     return <>
         <Draggable
             draggableId={task.id}
             index={index}
-            isDragDisabled={isDragDisabled}
+            // isDragDisabled={isDragDisabled}
         >
             {(provided, snapshot) => (
                 // snapshot - status
@@ -37,7 +50,7 @@ const Task = ({task, index}: any) => {
                     data-dragging={snapshot.isDragging}
                 >
                     <Handle {...provided.dragHandleProps}>
-                        {task.content}
+                        {task.content }
                     </Handle>
                 </Container>
             )}
