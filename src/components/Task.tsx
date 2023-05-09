@@ -2,14 +2,22 @@ import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
-  border: 1px solid lightgrey;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 8px
-  [data-dragging="true"] {
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    padding: 8px;
+    margin-bottom: 8px
+    [data-dragging="true"] {
     background: green
-  }
+    }
 `
+
+const Handle = styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: orange;
+    border-radius: 4px;
+    margin-right: 8px;
+`;
 
 const Task = ({task, index}: any) => {
     return <>
@@ -21,7 +29,11 @@ const Task = ({task, index}: any) => {
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     data-dragging={snapshot.isDragging}
-                >{task.content}</Container>
+                >
+                    <Handle {...provided.dragHandleProps}>
+                        {task.content}
+                    </Handle>
+                </Container>
             )}
         </Draggable>
     </>
