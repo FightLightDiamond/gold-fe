@@ -10,24 +10,16 @@ import {useState} from "react";
 import {useEffectOnce} from "../../app/hooks/useEffectOnce";
 import {WS} from "../../app/http/ws";
 import {toast} from "react-toastify";
-import {MDBBtn, MDBIcon} from "mdb-react-ui-kit";
+import {MDBBtn, MDBIcon, MDBTable, MDBTableHead, MDBTableBody} from "mdb-react-ui-kit";
 
 const Incorporate = () => {
-
     const [gameInfo, setGameInfo] = useState<any>({})
     const [x, setX] = useState(0)
     const [y, setY] = useState(0)
     const [socket, setSocket] = useState<any>(null)
     const [shapes, setShapes] = useState<any>([])
-
-    const setMousePosition = (e: any) => {
-        const {clientX, clientY} = e
-
-        // if (Math.abs(x - clientX) > 5 || Math.abs(y - clientY) > 5) {
-            setX(clientX)
-            setY(clientY)
-        // }
-    }
+    const [members, setMembers] = useState<any>([])
+    const room = 'match'
 
     useEffectOnce(() => {
         const getWS = async () => {
@@ -41,12 +33,15 @@ const Incorporate = () => {
                 socket.on('gameInfo', (gameInfo: any) => {
                     console.log({gameInfo})
                     setGameInfo(gameInfo)
+
+                    if (gameInfo[room]) {
+                        setMembers(gameInfo[room].members)
+                    }
                 })
                 socket.on('roomFull', (data: any) => {
                     toast("roomFull");
                 })
                 socket.on('gameStart', (data: any) => {
-                    console.log({data})
                     setShapes(data.items)
                     toast("gameStart");
                 })
@@ -62,6 +57,7 @@ const Incorporate = () => {
                         }
                     })
 
+                    setMembers(data.members)
                     setShapes(data.items)
                 })
                 socket.on('hadDone', (data: any) => {
@@ -169,8 +165,17 @@ const Incorporate = () => {
      */
     const onMove = async (e: any) => {
         const socket = await WS.getSocket()
-        socket.emit('move', {x: e.clientX, y: e.clientY})
-        // socket.emit('move', {x: e.clientX, y: e.clientY})
+        const {clientX, clientY} = e
+
+        // if (Math.abs(x - clientX) > 5 || Math.abs(y - clientY) > 5) {
+        setX(clientX)
+        setY(clientY)
+
+        if (clientX !== 0 && clientY !== 0) {
+            socket.emit('move', {x: clientX, y: clientY})
+        }
+
+        // socket.emit('move', {x: e.clientX, y: e.clientY} )
     }
 
     /**
@@ -214,23 +219,69 @@ const Incorporate = () => {
 
     return (
         <>
-            <div className={'element'} onMouseMove={setMousePosition}>
-                <span style={{left: x, top: y}} className={'cursor'}><MDBIcon fas icon="allergies"/></span>
+            {
+                members.map((member: any, key: number) =>
+                    <span key={key} style={{left: member.mouse.x, top: member.mouse.y, background: member.color}}
+                          className={'cursor'}><MDBIcon fas icon="allergies"/></span>)
+            }
+
+            {x}, {y}
+            <div className={'element'} onMouseMove={onMove}>
+                <MDBTable>
+                    <MDBTableHead>
+                        <tr>
+                            <th scope='col'>ID</th>
+                            <th scope='col'>Color</th>
+                            <th scope='col'>X</th>
+                            <th scope='col'>Y</th>
+                        </tr>
+                    </MDBTableHead>
+                    <MDBTableBody>
+                        {
+                            members.map((member: any) => <tr key={member.id}>
+                                <td>{member.id}</td>
+                                <td>{member.color}</td>
+                                <td>{member.mouse.x}</td>
+                                <td>{member.mouse.y}</td>
+                            </tr>)
+                        }
+                    </MDBTableBody>
+                </MDBTable>
+
+
+                <MDBTable>
+                    <MDBTableHead>
+                        <tr>
+                            <th scope='col'>#</th>
+                            <th scope='col'>ID</th>
+                            <th scope='col'>User</th>
+                            <th scope='col'>Status</th>
+                        </tr>
+                    </MDBTableHead>
+                    <MDBTableBody>
+                        {
+                            shapes.map((shape: any) => <tr key={shape.id}>
+                                <td>{shape.id}</td>
+                                <td>{shape.user_id}</td>
+                                <td>{shape.status}</td>
+                                <td>
+                                    <MDBBtn onClick={() => onPick(shape.id)}>Pick {shape?.id}</MDBBtn>
+                                    <MDBBtn onClick={() => onResetItem(shape.id)}>Remove {shape?.id}</MDBBtn>
+                                    <MDBBtn onClick={() => onDone(shape.id)}>DoneJoin {shape?.id}</MDBBtn>
+                                </td>
+                            </tr>)
+                        }
+                    </MDBTableBody>
+                </MDBTable>
+
+
                 <div><>{JSON.stringify(gameInfo)}</></div>
-                <div><>{JSON.stringify(shapes)}</></div>
                 <MDBBtn onClick={joinRoom}>Join Room {socket?.id}</MDBBtn>
                 <MDBBtn onClick={clearRoom}>End Room</MDBBtn>
-                <div>
-                    {shapes.map((shape: any) => <div key={shape.id}>
-                        <MDBBtn onClick={() => onPick(shape.id)}>Pick {shape?.id}</MDBBtn>
-                        <MDBBtn onClick={() => onResetItem(shape.id)}>Remove {shape?.id}</MDBBtn>
-                        <MDBBtn onClick={() => onDone(shape.id)}>DoneJoin {shape?.id}</MDBBtn>
-                    </div>)}
-                </div>
                 <DragDropContext onDragEnd={onDragEnd} onDragStart={(result: any) => {
                     onPick(result.draggableId)
                 }}>
-                    <div className="flex p-12" onMouseMove={onMove}>
+                    <div className="flex p-12">
                         <List title="Disponíveis" onDragEnd={onDragEnd} name="available">
                             {items.available.map((item, index) => (
                                 <Draggable key={item.uuid} draggableId={item.id + ""} index={index}>

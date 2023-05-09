@@ -118,7 +118,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: royalblue;
+  /*background-color: royalblue;*/
   transform: translate(-50%, -50%);
   /*background: url('../public/img/effect/BlueGlowing.png');*/
   /*background: url('../public/img/effect/BlueLensFlare.png');*/

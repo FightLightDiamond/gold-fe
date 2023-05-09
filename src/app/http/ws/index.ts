@@ -12,8 +12,7 @@ export class WS {
     private static token: string = Cookies.get('token') ?? ''
 
     static async w4(time = 50) {
-        await setTimeout(() => {
-        }, time)
+        await setTimeout(() => {}, time)
     }
 
     /**
@@ -23,7 +22,6 @@ export class WS {
         if (this.status) {
             await this.w4()
             await this.getSocket()
-            console.log('W4')
         }
 
         if (this.client !== null) {
@@ -41,8 +39,6 @@ export class WS {
         });
 
         this.status = 0;
-
-        console.log("this.client", this.client)
 
         return this.client
     }

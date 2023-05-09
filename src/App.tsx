@@ -26,6 +26,8 @@ import * as __ from "lodash";
 import {updateBalance} from "./app/http/store/reducers/auth.slice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./app/http/store";
+import Flag from "./pages/flag";
+import Bdg from "./pages/bdg";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -97,12 +99,14 @@ const App = () => {
           <Route path="/border" element={<Border/>}/>
           <Route path="/border" element={<Border/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
-          <Route path="/borer" element={<Border/>}/>
+          <Route path="/border" element={<Border/>}/>
           <Route path="/distortion" element={<Distortion/>}/>
           <Route path="/portfolio" element={<Portfolio/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/tft" element={<TFT/>}/>
           <Route path="/dg" element={<DG/>}/>
+          <Route path="/f" element={<Flag/>}/>
+          <Route path="/bdg" element={<Bdg/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>
