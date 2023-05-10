@@ -85,7 +85,7 @@ export default function Bdg() {
                         const column = columns[columnId];
                         const tasksColumn = column.taskIds.map((taskId: string) => tasks[taskId]);
 
-                        return <Column key={column.id} column={column} tasks={tasksColumn}/>;
+                        return <Column isDropDisabled={false} key={column.id} column={column} tasks={tasksColumn}/>;
                     }
                 )
             }

@@ -34,7 +34,7 @@ const areEqual = (prevProps: any, nextProps: any) => {
 
 const OnlyEvens = memo(InnerList, areEqual);
 
-const Column2 = ({column, tasks, isDropDisabled}: {column: any, tasks: any[], isDropDisabled: boolean}) => {
+const Column2 = ({column, tasks, isDropDisabled, index}: {column: any, tasks: any[], isDropDisabled?: boolean, index: number}) => {
     return (
         <Container>
             <Title>{column.title}</Title>

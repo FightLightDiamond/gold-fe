@@ -1,8 +1,7 @@
-import Column from "../components/Column";
-import {DragDropContext} from "react-beautiful-dnd";
+import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import React, {useState} from "react";
 import styled from "styled-components";
-import Column2 from "../components/Column2";
+import Column3 from "../components/Column3";
 
 const initialData: any = {
     tasks: {
@@ -36,17 +35,17 @@ const Container = styled.div`
   display: flex;
 `;
 
-const InnerList = ({ column, taskMap, index }: any) =>  {
+const InnerList = ({column, taskMap, index}: any) => {
     const tasks = column.taskIds.map((taskId: number) => taskMap[taskId]);
-    return <Column column={column} tasks={tasks} index={index} isDropDisabled={false} />;
+    return <Column3 column={column} tasks={tasks} index={index} isDropDisabled={false}/>;
 
 }
 
-export default function Bdg2() {
+export default function Bdg3() {
     const [tasks, setTasks] = useState(initialData.tasks)
     const [columns, setColumns] = useState<any>(initialData.columns)
     const [columnOrder, setColumnOrder] = useState(initialData.columnOrder)
-    const [homeIndex, setHomeIndex] = useState<number| null>(null)
+    const [homeIndex, setHomeIndex] = useState<number | null>(null)
 
 
     const onDragStart = (home: any) => {
@@ -60,7 +59,7 @@ export default function Bdg2() {
      */
     const onDragEnd = (result: any) => {
         setHomeIndex(null)
-        const { destination, source, draggableId } = result;
+        const {destination, source, draggableId, type} = result;
 
         if (!destination) {
             return;
@@ -70,6 +69,16 @@ export default function Bdg2() {
             destination.droppableId === source.droppableId &&
             destination.index === source.index
         ) {
+            return;
+        }
+        /**
+         * Di chuyển cả column
+         */
+        if (type === 'column') {
+            const newColumnOrder = Array.from(columnOrder);
+            newColumnOrder.splice(source.index, 1);
+            newColumnOrder.splice(destination.index, 0, draggableId);
+            setColumnOrder(newColumnOrder)
             return;
         }
 
@@ -121,32 +130,31 @@ export default function Bdg2() {
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
         >
-            <Container>
-                {
-                    columnOrder.map((columnId: string, index: number) => {
-                            const column = columns[columnId];
-                            // const tasksColumn = column.taskIds.map((taskId: string) => tasks[taskId]);
-                        // Khóa ô có index thảo mãn điều kiện
-                            // @ts-ignore
-                        // const isDropDisabled = index < homeIndex;
-
-                            // return <Column2
-                            //     key={column.id}
-                            //     column={column}
-                            //     tasks={tasksColumn}
-                            //     isDropDisabled={isDropDisabled}
-                            // />;
-
-                        return <InnerList
-                            key={column.id}
-                            column={column}
-                            taskMap={tasks}
-                            index={index}
-                        />
+            <Droppable
+                droppableId="all-columns"
+                direction="horizontal"
+                type="column"
+            >
+                {(provided) => (
+                    <Container
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                    >
+                        {
+                            columnOrder.map((columnId: string, index: number) => {
+                                const column = columns[columnId];
+                                return <InnerList
+                                    key={column.id}
+                                    column={column}
+                                    taskMap={tasks}
+                                    index={index}
+                                />
+                            })
                         }
-                    )
-                }
-            </Container>
+                        {provided.placeholder}
+                    </Container>
+                )}
+            </Droppable>
         </DragDropContext>
     </>
 }

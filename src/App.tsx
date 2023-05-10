@@ -29,6 +29,7 @@ import {RootState} from "./app/http/store";
 import Flag from "./pages/flag";
 import Bdg from "./pages/bdg";
 import Bdg2 from "./pages/bdg2";
+import Bdg3 from "./pages/bdg3";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -98,9 +99,7 @@ const App = () => {
 
           <Route path="/sprite" element={<Sprite/>}/>
           <Route path="/border" element={<Border/>}/>
-          <Route path="/border" element={<Border/>}/>
           <Route path="/down-clock" element={<DownClock/>}/>
-          <Route path="/border" element={<Border/>}/>
           <Route path="/distortion" element={<Distortion/>}/>
           <Route path="/portfolio" element={<Portfolio/>}/>
           <Route path="/profile" element={<Profile/>}/>
@@ -109,6 +108,7 @@ const App = () => {
           <Route path="/f" element={<Flag/>}/>
           <Route path="/bdg" element={<Bdg/>}/>
           <Route path="/bdg2" element={<Bdg2/>}/>
+          <Route path="/bdg3" element={<Bdg3/>}/>
           {/*<Route path="profile/*" element={<Profile />} />*/}
         </Routes>
       </BrowserRouter>

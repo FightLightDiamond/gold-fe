@@ -26,7 +26,7 @@ const TaskList = styled.div`
   display: flex;
 `
 
-const Column = ({column, tasks, isDropDisabled}: any) => {
+const Column = ({column, tasks, isDropDisabled}:  {column: any, tasks: any[], isDropDisabled?: boolean, index?: number}) => {
     return (
         <Container>
             <Title>{column.title}</Title>
